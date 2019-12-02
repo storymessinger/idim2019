@@ -35,7 +35,15 @@
       </div>
     </div>
 
-    <Project class="card-project card-project-shadow" msg="Welcome to Your IDIM Homepage"/>
+    <div class="drag drag-purple card-shadow" v-draggable>
+      <div class="drag-head">
+        <span class="type">NEWS</span>
+        <span class="date">2020.01</span>
+      </div>
+      <p class="drag-body">PARTY FOR DESIGNERS @ KAIST!</p>
+    </div>
+
+    <Project class="card-project card-shadow" msg="Welcome to Your IDIM Homepage"/>
     <News></News>
   </div>
 </template>
@@ -44,12 +52,16 @@
 // @ is an alias to /src
 import Project from '@/components/Project.vue'
 import News from '@/components/News.vue'
+import { Draggable } from 'draggable-vue-directive'
 
 export default {
   name: 'home',
   components: {
     Project,
     News
+  },
+  directives: {
+    Draggable
   }
 }
 </script>
@@ -60,6 +72,27 @@ export default {
   * {
     margin: 0;
     padding: 0;
+  }
+
+  .drag {
+    font-size: 3.5rem; // 55px
+    font-weight: 600;
+    max-width: 465px;
+    min-height: 465px;
+    text-align: left;
+    .drag-head {
+      padding:2.75rem;
+      display: flex;
+      justify-content: space-between;
+    }
+    .drag-body {
+      padding-left:2.75rem;
+    }
+  }
+
+  .drag-purple {
+    background: rgb(169, 48, 239);
+    color: white;
   }
 
   .menu {
@@ -98,11 +131,11 @@ export default {
     width: 95%;
   }
 
-.card-project-shadow {
+.card-shadow {
   box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
 }
 
-.card-project-shadow:hover {
+.card-shadow:hover {
   box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
 }
 
