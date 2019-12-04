@@ -6,11 +6,34 @@
         <span class="menu-btn">ID+IM</span>
       </div>
       <div class="menu-work">
-        <span class="menu-btn">Work</span>
-        <!-- <ul>
-          <li>a</li>
-          <li>b</li>
-        </ul> -->
+        <span :class="['menu-btn', {'menu-btn--open': this.openWork}]" @click="toggleNav()">
+          Work
+        </span>
+        <nav :class="['menu-nav', {'menu-nav--open': this.openWork }]">
+          <ul>
+            <li @click="toggleNav_2">All</li>
+            <nav :class="['menu-nav-nav', {'menu-nav-nav--open':this.openWorkAll}]">
+              <ul>
+                <li>22 TWT Wavetalk</li>
+                <li>21 KAIST Library</li>
+                <li>20 TWT Wavetalk</li>
+                <li>19 KAIST Library</li>
+                <li>18 TWT Wavetalk</li>
+                <li>17 KAIST Library</li>
+                <li>22 TWT Wavetalk</li>
+                <li>21 KAIST Library</li>
+                <li>20 TWT Wavetalk</li>
+                <li>19 KAIST Library</li>
+                <li>18 TWT Wavetalk</li>
+                <li>17 KAIST Library</li>
+              </ul>
+            </nav>
+            <li>Nanum</li>
+            <li>Research</li>
+            <li>Client</li>
+            <li>Exhibition</li>
+          </ul>
+        </nav>
       </div>
       <div class="menu-btn menu-about">
         <span class="menu-btn">About</span>
@@ -56,6 +79,24 @@ import { Draggable } from 'draggable-vue-directive'
 
 export default {
   name: 'home',
+  data: function(){
+    return {
+    openWork: false,
+    openWorkAll: false,
+  
+    openAbout: false,
+    openContact: false,
+    openShop: false
+    }
+  },
+  methods : {
+    toggleNav : function(){
+      this.openWork = !this.openWork
+    },
+    toggleNav_2 : function(){
+      this.openWorkAll = !this.openWorkAll
+    }
+  },
   components: {
     Project,
     News
@@ -119,14 +160,57 @@ export default {
     font-size: 36px;
     font-weight: 600; 
     text-align: left;
-
-    .menu-btn:hover {
-      color: white;
-    }
+    color: white;
     
+    .menu-btn {
+      &:hover {
+        color: yellow;
+
+      }
+    }
+
     .menu-logo {
       margin-bottom: 5rem
     }
+
+    .menu-work {
+      position: relative;
+    }
+
+    .menu-nav {
+      position: absolute;
+      left: 12rem;
+      top: 0;
+
+      visibility: hidden;
+      opacity: 0;
+      transition: .25s;
+
+      // white-space:nowrap
+
+      &-nav {
+        position: absolute;
+        left: 16rem;
+        top: 0;
+
+        visibility: hidden;
+        opacity: 0;
+        transition: .25s;
+        width: 100%;
+
+        white-space:nowrap
+      }
+      &-nav--open {
+        visibility: visible;
+        opacity: 1;
+      }
+    }
+
+    .menu-nav--open {
+      visibility: visible;
+      opacity: 1;
+    }
+
 
     ul {
       list-style-type: none;
