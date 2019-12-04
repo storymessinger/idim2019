@@ -35,7 +35,7 @@
       </div>
     </div>
 
-    <div class="drag drag-purple card-shadow" v-draggable>
+    <div class="drag drag-purple card-shadow" v-bind:style="{'top' : rand_x, 'left' : rand_y}" v-draggable>
       <div class="drag-head">
         <span class="type">NEWS</span>
         <span class="date">2020.01</span>
@@ -62,6 +62,16 @@ export default {
   },
   directives: {
     Draggable
+  },
+  // Need to change the number 255 into a variable window size. window.width??
+  // change to other option than <computed>, so that can be used multiple timesp5.HighPass() 
+  computed: {
+    rand_x: function() {
+      return Math.floor(Math.random() * 255 + 200) + "px" ;
+    },
+    rand_y: function() {
+      return Math.floor(Math.random() * 255 + 100) + "px" ;
+    }
   }
 }
 </script>
@@ -93,13 +103,17 @@ export default {
   .drag-purple {
     background: rgb(169, 48, 239);
     color: white;
+    position: fixed;
   }
 
   .menu {
-    margin-top: 1.5rem;
-    margin-left: 2rem;
     width: 100%;
     display: flex;
+    position: fixed;
+    top: 1.5rem;
+    left: 2rem;
+    // margin-top: 1.5rem;
+    // margin-left: 2rem;
     flex-direction: column;
 
     font-size: 36px;
@@ -123,7 +137,7 @@ export default {
   .card-project {
     background: #fff;
     position: absolute;
-    top: 50%;
+    top: 90%;
     right: 0;
     border-radius: 2px;
     display: inline-block;
