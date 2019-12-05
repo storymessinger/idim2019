@@ -37,18 +37,20 @@
       Industrial design of a healthcare product for a startup based on patented method of detecting micro-organisms using projection through water.
     </h3>
 
-    <img src="../assets/18_WAVETALK/1.png" class="project-img">
+    <div id="img-1">
+      <img src="../assets/18_WAVETALK/1.png" class="project-img">
+    </div>
 
     <div class="project-paragraph">
       <div>
         <h3>Redefining the Identity</h3>
+      </div>
+      <div class="project-paragraph-body">
         <p>
           Based in Daejeon (South Korea) and Seoul (South Korea), Wavetalk is a Biology stary up with the ambitious mission of decoding the world of bacteria for the benefit of people who are prone to bacterial disease, such as infants or elders.
           <br>
           ID+IM design laboratory developed the design of Wavetalk’s first commercial product line for everyday use. The project was led by ID+IM’s creative director Sangmin Bae.
         </p>
-      </div>
-      <div>
         <p>
           The design language of bacteria is typically anonymous, unable to be detected through bare eyes. Eschewing this, the design team decided to focus on a design that represents connection, and the potential to expand the functionality. They did this by first re-designing the Wavetalk visual identity and bringing the meaning into life.
         </p>
@@ -56,15 +58,20 @@
 
     </div>
 
+    <div id="img-2">
+      <img src="../assets/18_WAVETALK/10.png" class="project-img">
+    </div>
+
     <div class="project-paragraph">
       <div>
         <h3>Redefining the Identity</h3>
+      </div>
+      <div class="project-paragraph-body">
         <p>
           Based in Daejeon (South Korea) and Seoul (South Korea), Wavetalk is a Biology stary up with the ambitious mission of decoding the world of bacteria for the benefit of people who are prone to bacterial disease, such as infants or elders.
+          <br>
           ID+IM design laboratory developed the design of Wavetalk’s first commercial product line for everyday use. The project was led by ID+IM’s creative director Sangmin Bae.
         </p>
-      </div>
-      <div>
         <p>
           The design language of bacteria is typically anonymous, unable to be detected through bare eyes. Eschewing this, the design team decided to focus on a design that represents connection, and the potential to expand the functionality. They did this by first re-designing the Wavetalk visual identity and bringing the meaning into life.
         </p>
@@ -95,33 +102,66 @@ padding: 0;
 }
 //
 
+h3 {
+  font-size: 36px;
+  font-weight: 600;
+  margin:0;
+}
+
+
+
 .project {
   text-align : left;
 }
 
 .project-title {
+  font-size: 170px;
+  font-weight: 600;
+
   margin-left: 4rem;
-  margin-top:190px;
-  margin-bottom: 150px;
+  margin-top: 180px;
+  margin-bottom: 90px;
 }
 
 .project-subtitle {
   max-width: 900px;
-  margin-left: 4rem;
-  margin-top:180px;
-  margin-bottom: 200px;
+  margin-left: 5rem;
+  margin-bottom: 80px;
+}
+
+#img-1 {
+  display: flex;
+  justify-content: center; /* align horizontal */
+  margin-bottom: 80px;
+}
+
+#img-2 {
+  display: flex;
+  justify-content: flex-start; /* align horizontal */
+  margin-left: 76px;
+  margin-right:254px;
+  margin-bottom: 160px;
+  img {
+    width: 100%;
+  }
 }
 
 .project-paragraph {
   display: flex;
+  flex-flow: column;
   margin-left: 400px;
-  margin-bottom : 400px;
-  div {
-    max-width: 620px;
-    margin-left: 60px;
+  margin-bottom : 80px;
+
+  .project-paragraph-body {
+    display: flex;
+    margin-top: 40px;
+    p {
+      max-width: 620px;
+      margin-right: 60px;
+    }
   }
   h3 {
-    margin-bottom: 2rem;
+    // margin-bottom: 2rem;
   }
   p {
     font-size: 24px;
@@ -130,15 +170,6 @@ padding: 0;
   }
 }
 
-h1 {
-  font-size: 140px;
-  font-weight: 600;
-}
-
-h3 {
-  font-size: 36px;
-  font-weight: 600;
-}
 
 .project-header{
   display: flex;
@@ -164,6 +195,8 @@ h3 {
     }
 
   }
+
+
 }
 
 

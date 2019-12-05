@@ -221,7 +221,7 @@ export default {
   .card-project {
     background: #fff;
     position: absolute;
-    top: 90%;
+    top: 50%;
     right: 0;
     border-radius: 2px;
     display: inline-block;
