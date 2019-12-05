@@ -1,73 +1,5 @@
 <template>
-  <div>
-    <div class="menu">
-      <!-- <img alt="Vue logo" src="../assets/basic/logo.png"> -->
-      <div class="menu-logo">
-        <span class="menu-btn">ID+IM</span>
-      </div>
-      <div class="menu-work">
-        <span :class="['menu-btn', {'menu-btn--open': this.openWork}]" @click="toggleNav()">
-          Work
-        </span>
-        <nav :class="['menu-nav', {'menu-nav--open': this.openWork }]">
-          <ul>
-            <li @click="toggleNav_2">All</li>
-            <nav :class="['menu-nav-nav', {'menu-nav-nav--open':this.openWorkAll}]">
-              <ul>
-                <li>22 TWT Wavetalk</li>
-                <li>21 KAIST Library</li>
-                <li>20 TWT Wavetalk</li>
-                <li>19 KAIST Library</li>
-                <li>18 TWT Wavetalk</li>
-                <li>17 KAIST Library</li>
-                <li>22 TWT Wavetalk</li>
-                <li>21 KAIST Library</li>
-                <li>20 TWT Wavetalk</li>
-                <li>19 KAIST Library</li>
-                <li>18 TWT Wavetalk</li>
-                <li>17 KAIST Library</li>
-              </ul>
-            </nav>
-            <li>Nanum</li>
-            <li>Research</li>
-            <li>Client</li>
-            <li>Exhibition</li>
-          </ul>
-        </nav>
-      </div>
-      <div class="menu-btn menu-about">
-        <span class="menu-btn">About</span>
-        <!-- <ul>
-          <li>a</li>
-          <li>b</li>
-        </ul> -->
-      </div>
-      <div class="menu-btn menu-contact">
-        <span class="menu-btn">Contact</span>
-        <!-- <ul>
-          <li>a</li>
-          <li>b</li>
-        </ul> -->
-      </div>
-      <div class="menu-btn menu-shop">
-        <span class="menu-btn">Shop</span>
-        <!-- <ul>
-          <li>a</li>
-          <li>b</li>
-        </ul> -->
-      </div>
-    </div>
-
-    <div class="drag drag-purple card-shadow" v-bind:style="{'top' : rand_x, 'left' : rand_y}" v-draggable>
-      <div class="drag-head">
-        <span class="type">NEWS</span>
-        <span class="date">2020.01</span>
-      </div>
-      <p class="drag-body">PARTY FOR DESIGNERS @ KAIST!</p>
-    </div>
-
-    <Project class="card-project card-shadow" msg="Welcome to Your IDIM Homepage"/>
-    <News></News>
+  <div id="home">
   </div>
 </template>
 
@@ -120,114 +52,103 @@ export default {
 
 <style scoped lang="scss">
 
-  * {
-    margin: 0;
-    padding: 0;
-  }
+#home {
+  
 
-  .drag {
-    font-size: 3.5rem; // 55px
-    font-weight: 600;
-    max-width: 465px;
-    min-height: 465px;
-    text-align: left;
-    .drag-head {
-      padding:2.75rem;
-      display: flex;
-      justify-content: space-between;
-    }
-    .drag-body {
-      padding-left:2.75rem;
-    }
-  }
 
-  .drag-purple {
-    background: rgb(169, 48, 239);
-    color: white;
-    position: fixed;
-  }
-
-  .menu {
-    width: 100%;
+.drag {
+  font-size: 3.5rem; // 55px
+  font-weight: 600;
+  max-width: 465px;
+  min-height: 465px;
+  text-align: left;
+  .drag-head {
+    padding:2.75rem;
     display: flex;
-    position: fixed;
-    top: 1.5rem;
-    left: 2rem;
-    // margin-top: 1.5rem;
-    // margin-left: 2rem;
-    flex-direction: column;
+    justify-content: space-between;
+  }
+  .drag-body {
+    padding-left:2.75rem;
+  }
+}
 
-    font-size: 36px;
-    font-weight: 600; 
-    text-align: left;
-    color: white;
-    
-    .menu-btn {
-      &:hover {
-        color: yellow;
+.drag-purple {
+  background: rgb(169, 48, 239);
+  color: white;
+  position: fixed;
+}
 
-      }
-    }
+.menu-box {
+  position: fixed;
+  top: 1.5rem;
+  left: 2rem;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
 
-    .menu-logo {
-      margin-bottom: 5rem
-    }
+  font-size: 30px;
+  font-weight: 600; 
+  color: #000;
+  
+  .menu-logo {
+    margin-bottom: 5rem
+  }
 
-    .menu-work {
-      position: relative;
-    }
+  .menu-work {
+    position: relative;
+  }
 
-    .menu-nav {
+  .menu-nav {
+    position: absolute;
+    left: 12rem;
+    top: 0;
+
+    visibility: hidden;
+    opacity: 0;
+    transition: .25s;
+
+    // white-space:nowrap
+
+    &-nav {
       position: absolute;
-      left: 12rem;
+      left: 16rem;
       top: 0;
 
       visibility: hidden;
       opacity: 0;
       transition: .25s;
+      width: 100%;
 
-      // white-space:nowrap
-
-      &-nav {
-        position: absolute;
-        left: 16rem;
-        top: 0;
-
-        visibility: hidden;
-        opacity: 0;
-        transition: .25s;
-        width: 100%;
-
-        white-space:nowrap
-      }
-      &-nav--open {
-        visibility: visible;
-        opacity: 1;
-      }
+      white-space:nowrap
     }
-
-    .menu-nav--open {
+    &-nav--open {
       visibility: visible;
       opacity: 1;
     }
-
-
-    ul {
-      list-style-type: none;
-    }
-
   }
 
-  .card-project {
-    background: #fff;
-    position: absolute;
-    top: 90%;
-    right: 0;
-    border-radius: 2px;
-    display: inline-block;
-    min-height: 600px;
-    width: 95%;
+  .menu-nav--open {
+    visibility: visible;
+    opacity: 1;
   }
+
+
+  ul {
+    list-style-type: none;
+  }
+
+}
+
+.card-project {
+  background: #fff;
+  position: absolute;
+  top: 90%;
+  right: 0;
+  border-radius: 2px;
+  display: inline-block;
+  min-height: 600px;
+  width: 95%;
+}
 
 .card-shadow {
   box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
@@ -237,6 +158,10 @@ export default {
   box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
 }
 
+
+
+
+}
 
 // Google Card Reference
 // .card {
@@ -275,7 +200,5 @@ export default {
 // }
 
 //
-
-
 
 </style>
