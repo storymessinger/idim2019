@@ -37,7 +37,7 @@
       Industrial design of a healthcare product for a startup based on patented method of detecting micro-organisms using projection through water.
     </h3>
 
-    <!-- <img src="../assets/18_KAIST_LIBRARY/1.jpg" class="project-img"> -->
+    <img src="../assets/18_WAVETALK/1.png" class="project-img">
 
     <div class="project-paragraph">
       <div>
@@ -117,26 +117,26 @@ padding: 0;
   margin-left: 400px;
   margin-bottom : 400px;
   div {
-    max-width: 640px;
-    margin-left: 2.5rem;
+    max-width: 620px;
+    margin-left: 60px;
   }
   h3 {
     margin-bottom: 2rem;
   }
   p {
-    font-size: 26px;
+    font-size: 24px;
     font-weight: 600;
-    line-height: 1.2;
+    line-height: 1.3;
   }
 }
 
 h1 {
-  font-size: 160px;
+  font-size: 140px;
   font-weight: 600;
 }
 
 h3 {
-  font-size: 40px;
+  font-size: 36px;
   font-weight: 600;
 }
 
