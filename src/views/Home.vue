@@ -137,6 +137,7 @@ export default {
     list-style-type: none;
   }
 
+<<<<<<< HEAD
 }
 
 .card-project {
@@ -149,6 +150,18 @@ export default {
   min-height: 600px;
   width: 95%;
 }
+=======
+  .card-project {
+    background: #fff;
+    position: absolute;
+    top: 50%;
+    right: 0;
+    border-radius: 2px;
+    display: inline-block;
+    min-height: 600px;
+    width: 95%;
+  }
+>>>>>>> aff1daf3119499bd7502bf356c37fb71691724f9
 
 .card-shadow {
   box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
