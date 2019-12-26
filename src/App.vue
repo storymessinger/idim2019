@@ -319,7 +319,7 @@ div {
         height: var(--list-height);
         position: relative;
         padding-left: var(--indent);
-        transition: transform 0.1s;
+        transition: transform 0.1s ;
         transform: translateX(calc(-1 * var(--indent)));
         overflow: hidden;
         cursor: pointer;
