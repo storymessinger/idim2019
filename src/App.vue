@@ -19,6 +19,12 @@
           >
             <h2>Work</h2>
           </li>
+          <li>
+            <h2>Paper</h2>
+          </li>
+          <li>
+            <h2>News</h2>
+          </li>
           <li :class="`
             ${$route.params.dir1 === 'about' ? 'on' : ''}
           `"
@@ -69,9 +75,7 @@
 
     
     <transition name="slide">
-      <div class="front-layer"
-      v-if="$route.params.dir2"
-      >
+      <div class="front-layer" v-if="$route.params.dir2">
         <div 
           :class="`
             click-layer 
@@ -80,11 +84,121 @@
           v-if="$route.params.dir2"
           @click="pushRoute('work', null, null, 'all')"
         >
+
         </div>
-        <div
-          class="work-paper"
+
+        <div class="work-paper">
+
           
-        >
+          <!-- fixed -->
+          <div class="contentsList">
+            <ul>
+              <li>
+                1. Refining the Identity
+              </li>
+              <li>
+                2. Visual Information
+              </li>
+              <li>
+                3 Minimizing the difficulty
+              </li>
+              <li>
+                4 Refining the Identity
+              </li>
+              <li>
+                5 Visual Information
+              </li>
+              <li>
+                6 Minimizing the difficulty
+              </li>
+              <li>
+                7 Prologue
+              </li>
+              <li>
+                End
+              </li>
+            </ul>
+
+          </div>
+
+          <!-- fixed end -->
+
+          <div class="header-barcode">
+            22TCP19
+          </div>
+          <div class="header-info">
+            <ul>
+              <li>
+                Client : The.Wave.Talk
+              </li>
+              <li>
+                Type : Company
+              </li>
+              <li>
+                Discipline : Product Design, Brand Identity
+              </li>
+              <li>
+                Date : 2019.1.31.
+              </li>
+            </ul>
+          </div>
+
+          <div class="body-title">
+            The.Wave.Talk
+          </div>
+          <div class="body-intro">
+            Industrial design of a healthcare product for a startup based on patented method of detecting micro-organisms using projection through water.
+          </div>
+          <div class="img-01">
+            <img src="../src/assets/18_WAVETALK/10.png">
+            <p class="caption">
+              Fig 22-01	   Fabric Module Usage
+            </p>
+          </div>
+
+          <div class="body-tag-01">
+            1
+          </div>
+          
+          <div class="body-subtitle-01">
+            Redefining the Identity
+          </div>
+
+          <div class="body-detail-01">
+            Based in Daejeon (South Korea) and Seoul (South Korea), Wavetalk is a Biology startup with the ambitious mission of decoding the world of bacteria for the benefit of people who are prone to bacterial disease, such as infants or elders.
+            <br>
+            ID+IM design laboratory developed the design of Wavetalk’s first commercial product line for everyday use. The project was led by ID+IM’s creative director Sangmin Bae.
+            <br>
+            The design language of bacteria is typically anonymous, unable to be detected through bare eyes. Eschewing this, the design team decided to focus on a design that represents connection, and the potential to expand the functionality. They did this by first re-designing the Wavetalk visual identity and bringing the meaning into life.
+
+          </div>
+
+          <div class="img-02">
+            <img src="../src/assets/18_WAVETALK/11.png">
+            <p class="caption">
+              Fig 22-02
+            </p>
+          </div>
+
+          <div class="img-03">
+            <img src="../src/assets/18_WAVETALK/7b.png">
+            <p class="caption">
+              Fig 22-03
+            </p>
+          </div>
+
+          <div class="body-tag-02">
+            2
+          </div>
+          
+          <div class="body-subtitle-02">
+            Visual Identity
+          </div>
+
+          <div class="body-detail-02">
+            ID+IM Design Laboratory interpreted the identity of Wavetalk as if the wave itself is talking to the opposite medium and receiving an answer back. Design team depicted this idea into three letter alphabet ‘TWT’ which stands for ‘The Wave Talks’, but also images a wave going to and back between different materials. 
+          </div>
+          
 
         </div>
       </div>
@@ -210,6 +324,12 @@ export default {
   font-family: "Suisse";
   src: url("assets/fonts/Suisse BP Int'l Regular_0.otf") format("opentype");
   font-weight: 400;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Suisse";
+  src: url("assets/fonts/Suisse BP Int'l Light_0.otf") format("opentype");
+  font-weight: 300;
   font-style: normal;
 }
 @font-face {
@@ -410,7 +530,8 @@ div {
 
     .work-paper {
       position: relative;
-      width: 100%; height: 2000px;
+      width: 100%; 
+      //height: 2000px;
       z-index: 11;
       background: white;
       box-shadow: 0 10px 20px 5px rgba(0,0,0,0.2);
@@ -428,7 +549,177 @@ div {
  
 
 
-  
+  .work-paper {
+    position: relative;
+    display: grid;
+    // padding: 48px;
+    // grid-template-columns: repeat(16,102px);
+    // grid-template-columns: repeat(16,1fr);
+    grid-template-columns: 48px repeat(16,minmax(72px, 1fr)) 48px;
+    grid-template-rows: 48px repeat(50, 102px) 48px;
+    min-height: 1000px;
+
+    .header-barcode {
+      grid-area: 2 / 2 / span 1 / span 3;
+
+      font-family: Suisse;
+      font-size: 60px;
+      font-weight: 600;
+    }
+    .header-info {
+      grid-area : 2 / 7 / span 1 /span 5;
+
+      font-family: Suisse;
+      font-size: 21px;
+      line-height: 1.2;
+    }
+
+    .contentsList {
+      position: fixed;
+      right: 48px;
+      text-align: right;
+
+      font-family: Suisse;
+      font-weight: 600;
+      font-size: 18px;
+      line-height: 1.2;
+
+      opacity: 30%;
+    }
+
+    .body-title {
+      grid-area: 5 / 2 / span 1 / span 10;
+
+      font-family: Suisse;
+      font-weight: 600;
+      font-size: 120px;
+      line-height: 1.2;
+    }
+    .body-intro{
+      grid-area: 6 / 2 / span 2 / span 7;
+
+      font-family: Suisse;
+      font-weight: 600;
+      font-size: 30px;
+      line-height: 1.2;
+
+      display: flex;
+      align-items: center;
+    }
+    .img-01 {
+      grid-area: 8 / 1 / span 8 / span 18;
+      img {
+         object-fit: cover;
+         width: 100%;
+         max-height: 100%;
+      }
+    }
+
+    .caption {
+      margin-top: 20px;
+      margin-left: 15px;
+
+      font-family: Suisse;
+      font-weight: 600;
+      font-size: 15px;
+      line-height: 1.2;
+    }
+
+    .body-tag-01 {
+      grid-area: 17 / 2;
+
+      font-family: SuisseMono;
+      font-weight: 600;
+      font-size: 60px;
+      line-height: 1.2;
+
+      display: flex;
+      align-items: flex-end;
+    }
+
+    .body-subtitle-01 {
+      grid-area: 17 / 4 / span 1 / span 8;
+
+      font-family: Suisse;
+      font-weight: 600;
+      font-size: 36px;
+      line-height: 1.2;
+
+      display: flex;
+      align-items: flex-end;
+
+    }
+
+    .body-detail-01 {
+      grid-area: 18 / 5 / span 1 / span 8;
+
+      font-family: Suisse;
+      font-weight: 300;
+      font-size: 21px;
+      line-height: 1.85;
+
+      padding-top: 48px;
+
+    }
+
+    .img-02 {
+      grid-area: 23 / 4 / span 8 / span 3;
+      img {
+         object-fit: cover;
+         width: 100%;
+         max-height: 100%;
+      }
+    }
+    .img-03 {
+      grid-area: 23 / 9 / span 3 / span 3;
+      img {
+         object-fit: cover;
+         width: 100%;
+         max-height: 100%;
+      }
+    }
+
+    .body-tag-02 {
+      grid-area: 29 / 2;
+
+      font-family: SuisseMono;
+      font-weight: 600;
+      font-size: 60px;
+      line-height: 1.2;
+
+      display: flex;
+      align-items: flex-end;
+    }
+
+    .body-subtitle-02 {
+      grid-area: 29 / 4 / span 1 / span 8;
+
+      font-family: Suisse;
+      font-weight: 600;
+      font-size: 36px;
+      line-height: 1.2;
+
+      display: flex;
+      align-items: flex-end;
+
+    }
+
+    .body-detail-02 {
+      grid-area: 30 / 5 / span 1 / span 8;
+
+      font-family: Suisse;
+      font-weight: 300;
+      font-size: 21px;
+      line-height: 1.85;
+
+      padding-top: 48px;
+
+    }
+
+
+
+
+  } 
 
 
 }
