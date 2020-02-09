@@ -4,6 +4,17 @@ import VueRouter from 'vue-router';
 import { sync } from 'vuex-router-sync';
 import App from './App.vue';
 import 'core-js/stable'; 
+// import VueMasonry from 'vue-masonry-css';
+// Vue.use(VueMasonry);
+import {VueMasonryPlugin} from 'vue-masonry';
+Vue.use(VueMasonryPlugin);
+
+
+import colorSwatch from './colorSwatch.js';
+window.colorSwatch = colorSwatch;
+// console.log(colorSwatch);
+
+
 
 
 Vue.use(VueRouter);
@@ -32,7 +43,7 @@ const routes = [
 ]
 
 const router = new VueRouter({
-  mode: 'history',
+  // mode: 'history',
   routes
 })
 

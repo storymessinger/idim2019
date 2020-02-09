@@ -1,258 +1,905 @@
-<template>
-  <div id="app">
-
-    <div class="back-layer">
-
-      <div class="logo-box"
-        @click="pushRoute()">
+<template> <div id="app">
+    
+    <div class="grid-base-fixed">
+      <div class="logo">
         <!-- to be replaced by img? -->
-        <h1>ID+IM</h1> 
+        <h1 @click="pushRoute()">ID+IM</h1> 
       </div>
 
-      <nav class="menu">
+      <nav class="nav-list top">
         <ul>
-          <li 
-            :class="`
-              ${$route.params.dir1 === 'work' ? 'on' : ''}
-            `"
-            @click="pushRoute('work', null, null, 'all')"
-          >
-            <h2>Work</h2>
+          <li>
+            <h2
+              :class="`
+                button
+                ${$route.params.dir1 === 'work' ? 'selected' : ''}
+                `"
+              @click="pushRoute('work', null, null)"
+              >
+              Work
+            </h2>
           </li>
           <li>
-            <h2>Paper</h2>
+            <h2
+              :class="`
+                button
+                ${$route.params.dir1 === 'about' ? 'selected' : ''}
+                `"
+              @click="pushRoute('about')"
+              >
+              About
+            </h2>
           </li>
           <li>
-            <h2>News</h2>
-          </li>
-          <li :class="`
-            ${$route.params.dir1 === 'about' ? 'on' : ''}
-          `"
-            @click="pushRoute('about')"
-          >
-            <h2>About</h2>
-          </li>
-        </ul>
-        <ul class="bottom">
-          <li>
-            <h2>Contact</h2>
-          </li>
-          <li>
-            <h2>Shop</h2>
+            <h2 
+              :class="`
+                button
+                ${$route.params.dir1 === 'news' ? 'selected' : ''}
+                `"
+              @click="pushRoute('news')"
+              >
+              News
+            </h2>
           </li>
         </ul>
       </nav>
 
-      <transition name="appear">
-        <nav class="sub-menu"
-          v-if="$route.params.dir1 === 'work'">
-          <ul>
-            <li v-for="filter in workFilterList" :key="filter"
-              @click="pushRoute('work', null, null, filter)"
-              :class="`${$route.hash === '#'+filter ? 'on' : ''}`" 
-            > 
-              <h2>{{filter.replace(/\b\w/, filter.charAt(0).toUpperCase())}}</h2>
-            </li>
-          </ul>
-        </nav>
-      </transition>
-      <transition name="appear">
-        <nav class="work-list"
-          v-if="$route.params.dir1 === 'work'">
-          <ul>
-            <li v-for="(work, index) in workList" :key="work"
-              @click="pushRoute('work', index.toString())"
-              :class="`${$route.params.dir2 == index ? 'on' : ''}`" 
-            >
-              <h2>
-                <span>{{formatIndex(workList.length-index)}}</span>{{work}}
-              </h2>
-            </li>
-          </ul>
-        </nav>
-      </transition>
+      <nav class="nav-list bottom">
+        <ul>
+          <li >
+            <h2
+              :class="`
+                button
+                ${$route.params.dir1 === 'contact' ? 'selected' : ''}
+              `"
+              >
+              Contact
+            </h2>
+          </li>
+          <li>
+            <a
+              :class="`
+                button
+              `"
+              href="http://www.nanumproject.com/" target="_blank"
+              >
+              Shop
+            </a>
+          </li>
+        </ul>
+      </nav>
     </div>
 
-    
-    <transition name="slide">
-      <div class="front-layer" v-if="$route.params.dir2">
-        <div 
-          :class="`
-            click-layer 
-            ${$route.params.dir2 ? 'clickable' : ''}
-          `"
-          v-if="$route.params.dir2"
-          @click="pushRoute('work', null, null, 'all')"
-        >
 
-        </div>
+    <transition name="fade" mode="out-in">
+      <HomeBase 
+        v-if="$route.params.dir1===undefined"
+        :awardList="awardList"
+        />
 
-        <div class="work-paper">
+      <WorkBase
+        v-else-if="$route.params.dir1==='work'" 
+        :pushRoute="pushRoute"
+        :workList="workList"
+        :filterList="workFilterList"
+        />
 
-          
-          <!-- fixed -->
-          <div class="contentsList">
-            <ul>
-              <li>
-                1. Refining the Identity
-              </li>
-              <li>
-                2. Visual Information
-              </li>
-              <li>
-                3 Minimizing the difficulty
-              </li>
-              <li>
-                4 Refining the Identity
-              </li>
-              <li>
-                5 Visual Information
-              </li>
-              <li>
-                6 Minimizing the difficulty
-              </li>
-              <li>
-                7 Prologue
-              </li>
-              <li>
-                End
-              </li>
-            </ul>
+      <AboutBase 
+        v-else-if="$route.params.dir1==='about'" 
+        :pushRoute="pushRoute"
+        :memberList="memberList"
+        />
+      
+      <NewsBase 
+        v-else-if="$route.params.dir1==='news'" 
+        :pushRoute="pushRoute"
+        :pressList="pressList"
+        :feedList="feedList"
+        :filterList="newsFilterList"
+        />
+    </transition>
 
-          </div>
-
-          <!-- fixed end -->
-
-          <div class="header-barcode">
-            22TCP19
-          </div>
-          <div class="header-info">
-            <ul>
-              <li>
-                Client : The.Wave.Talk
-              </li>
-              <li>
-                Type : Company
-              </li>
-              <li>
-                Discipline : Product Design, Brand Identity
-              </li>
-              <li>
-                Date : 2019.1.31.
-              </li>
-            </ul>
-          </div>
-
-          <div class="body-title">
-            The.Wave.Talk
-          </div>
-          <div class="body-intro">
-            Industrial design of a healthcare product for a startup based on patented method of detecting micro-organisms using projection through water.
-          </div>
-          <div class="img-01">
-            <img src="../src/assets/18_WAVETALK/10.png">
-            <p class="caption">
-              Fig 22-01	   Fabric Module Usage
-            </p>
-          </div>
-
-          <div class="body-tag-01">
-            1
-          </div>
-          
-          <div class="body-subtitle-01">
-            Redefining the Identity
-          </div>
-
-          <div class="body-detail-01">
-            Based in Daejeon (South Korea) and Seoul (South Korea), Wavetalk is a Biology startup with the ambitious mission of decoding the world of bacteria for the benefit of people who are prone to bacterial disease, such as infants or elders.
-            <br>
-            ID+IM design laboratory developed the design of Wavetalk’s first commercial product line for everyday use. The project was led by ID+IM’s creative director Sangmin Bae.
-            <br>
-            The design language of bacteria is typically anonymous, unable to be detected through bare eyes. Eschewing this, the design team decided to focus on a design that represents connection, and the potential to expand the functionality. They did this by first re-designing the Wavetalk visual identity and bringing the meaning into life.
-
-          </div>
-
-          <div class="img-02">
-            <img src="../src/assets/18_WAVETALK/11.png">
-            <p class="caption">
-              Fig 22-02
-            </p>
-          </div>
-
-          <div class="img-03">
-            <img src="../src/assets/18_WAVETALK/7b.png">
-            <p class="caption">
-              Fig 22-03
-            </p>
-          </div>
-
-          <div class="body-tag-02">
-            2
-          </div>
-          
-          <div class="body-subtitle-02">
-            Visual Identity
-          </div>
-
-          <div class="body-detail-02">
-            ID+IM Design Laboratory interpreted the identity of Wavetalk as if the wave itself is talking to the opposite medium and receiving an answer back. Design team depicted this idea into three letter alphabet ‘TWT’ which stands for ‘The Wave Talks’, but also images a wave going to and back between different materials. 
-          </div>
-          
-
-        </div>
+    <transition 
+      name="slide">
+      <div 
+        class="backdrop" 
+        v-if="showWorkPaper" 
+        @click.self="pushRoute($route.params.dir1, null, null)">
+        <WorkPaper :work="workList[parseInt($route.params.dir2)]">
+        </WorkPaper>
       </div>
     </transition>
+    
+    <transition 
+      name="slide">
+      <div 
+        class="backdrop" 
+        v-if="showAwardsPaper" 
+        @click.self="pushRoute($route.params.dir1, null, null)">
+        <AwardsPaper :awardList="awardList">
+        </AwardsPaper>
+      </div>
+    </transition>
+
+    <transition 
+      name="slide">
+      <div 
+        class="backdrop" 
+        v-if="showPapersPaper" 
+        @click.self="pushRoute($route.params.dir1, null, null)">
+        <PapersPaper :paperList="paperList">
+        </PapersPaper>
+      </div>
+    </transition>
+    
+    
+    
+
+    
     
   </div>
 </template>
 
 <script>
+import HomeBase from './components/HomeBase';
+import AboutBase from './components/AboutBase';
+import WorkBase from './components/WorkBase';
+import NewsBase from './components/NewsBase';
+
+import WorkPaper from './components/WorkPaper';
+import AwardsPaper from './components/AwardsPaper';
+import PapersPaper from './components/PapersPaper';
+
 
 export default {
   name: 'app',
   data: function(){
     return {
-      workFilterList: [
-        'all',
-        'nanum',
-        'research',
-        'client',
-        'exhibition'
-      ],
+      slideWorkIn: false,
       workList: [
-        'KAIST Library',
-        'Humicotta',
-        'S.Cone',
-        'KAIST-Audi Creative Lounge',
-        'Maasai Smart Cane',
-        'Light Funnel',
-        'Culture BOXCHOOL',
-        'H-Chromosome',
-        'BOXCHOOL',
-        'Alive Tent',
-        'Social Wind',
-        'T2B',
-        'tent3.0',
-        'Stream Cooler',
-        'Roll-Di',
-        'Printing Solar Cell',
-        'Snowenergy',
-        'Sound Spray',
-        "D'light",
-        'Namsun',
-        'Grass Paint',
-        'Baby Lamp',
-        'Lovepot',
-        'Heartea',
-        'Crosscube',
-        'Roly-Poly',
-        'Clothtag',
-        'Bottomup',
-        'Pingpong Screen',
-        'RhythmFish',
-        '35mm Camera',
-        'Sound Pump'
+        {
+          name: 'The.Wave.Talk',
+          index: 33,
+        },
+        {
+          name: 'KAIST Library',
+          index: 32,
+        },
+        {
+          name: 'Humicotta',
+          index: 31,
+        },
+        {
+          name: 'S.Cone',
+          index: 30,
+        },
+        {
+          name: 'KAIST-Audi Creative Lounge',
+          index: 29,
+        },
+        {
+          name: 'Maasai Smart Cane',
+          index: 28,
+        },
+        {
+          name: 'Light Funnel',
+          index: 27,
+        },
+        {
+          name: 'Culture BOXCHOOL',
+          index: 26,
+        },
+        {
+          name: 'H-Chromosome',
+          index: 25,
+        },
+        {
+          name: 'BOXCHOOL',
+          index: 24,
+        },
+        {
+          name: 'Alive Tent',
+          index: 23,
+        },
+        {
+          name: 'Social Wind',
+          index: 22,
+        },
+        {
+          name: 'T2B',
+          index: 21,
+        },
+        {
+          name: 'tent3.0',
+          index: 20,
+        },
+        {
+          name: 'Stream Cooler',
+          index: 19,
+        },
+        {
+          name: 'Roll-Di',
+          index: 18,
+        },
+        {
+          name: 'Printing Solar Cell',
+          index: 17,
+        },
+        {
+          name: 'Snowenergy',
+          index: 16,
+        },
+        {
+          name: 'Sound Spray',
+          index: 15,
+        },
+        {
+          name: "D'light",
+          index: 14,
+        },
+        {
+          name: 'Grass Paint',
+          index: 13,
+        },
+        {
+          name: 'Baby Lamp',
+          index: 12,
+        },
+        {
+          name: 'Lovepot',
+          index: 11,
+        },
+        {
+          name: 'Heartea',
+          index: 10,
+        },
+        {
+          name: 'Crosscube',
+          index: 9,
+        },
+        {
+          name: 'Roly-Poly',
+          index: 8,
+        },
+        {
+          name: 'Clothtag',
+          index: 7,
+        },
+        {
+          name: 'Bottomup',
+          index: 6,
+        },
+        {
+          name: 'Pingpong Screen',
+          index: 5,
+        },
+        {
+          name: 'RhythmFish',
+          index: 4,
+        },
+        {
+          name: '35mm Camera',
+          index: 3,
+        },
+        {
+          name: 'Sound Pump',
+          index: 2,
+        },
+      ],
+      workFilterList: [
+        {
+          name: 'Nanum',
+          type: 'tag',
+          value: 'nanum'
+        },
+        {
+          name: 'Seed',
+          type: 'tag',
+          value: 'seed'
+        },
+        {
+          name: 'Client',
+          type: 'tag',
+          value: 'client'
+        },
+        {
+          name: '2019',
+          type: 'year',
+          value: '2019'
+        },
+        {
+          name: '2018',
+          type: 'year',
+          value: '2018'
+        },
+        {
+          name: '2017',
+          type: 'year',
+          value: '2017'
+        },
+        {
+          name: '2016',
+          type: 'year',
+          value: '2016'
+        },
+        {
+          name: '2015',
+          type: 'year',
+          value: '2015'
+        },
+        {
+          name: '2014',
+          type: 'year',
+          value: '2014'
+        },
+        {
+          name: '2013',
+          type: 'year',
+          value: '2013'
+        },
+        {
+          name: '2012',
+          type: 'year',
+          value: '2012'
+        },
+        {
+          name: '2011',
+          type: 'year',
+          value: '2011'
+        },
+        {
+          name: '2010',
+          type: 'year',
+          value: '2010'
+        },
+        {
+          name: '2009',
+          type: 'year',
+          value: '2009'
+        },
+        {
+          name: '2008',
+          type: 'year',
+          value: '2008'
+        },
+        {
+          name: '2007',
+          type: 'year',
+          value: '2007'
+        },
+      ],
+      newsFilterList: [
+        {
+          name: 'Feed',
+          type: 'type',
+          value: 'feed'
+        },
+        {
+          name: 'Press',
+          type: 'type',
+          value: 'press'
+        },
+        {
+          name: '2019',
+          type: 'year',
+          value: '2019'
+        },
+        {
+          name: '2018',
+          type: 'year',
+          value: '2018'
+        },
+        {
+          name: '2017',
+          type: 'year',
+          value: '2017'
+        },
+        {
+          name: '2016',
+          type: 'year',
+          value: '2016'
+        },
+        {
+          name: '2015',
+          type: 'year',
+          value: '2015'
+        },
+        {
+          name: '2014',
+          type: 'year',
+          value: '2014'
+        },
+        {
+          name: '2013',
+          type: 'year',
+          value: '2013'
+        },
+        {
+          name: '2012',
+          type: 'year',
+          value: '2012'
+        },
+        {
+          name: '2011',
+          type: 'year',
+          value: '2011'
+        },
+        {
+          name: '2010',
+          type: 'year',
+          value: '2010'
+        },
+        {
+          name: '2009',
+          type: 'year',
+          value: '2009'
+        },
+        {
+          name: '2008',
+          type: 'year',
+          value: '2008'
+        },
+        {
+          name: '2007',
+          type: 'year',
+          value: '2007'
+        },
+      ],
+      memberList: [
+        {
+          name: 'Sangmin Bae',
+          role: 'Professor / Director',
+          img: 'sangmin_bae.png'
+        },
+        // {
+        //   name: 'ID',
+        //   role: 'Mascot',
+        //   img: 'id.jpg'
+        // },
+        {
+          name: 'Jieun Shim',
+          role: 'Researcher / Designer',
+          img: 'jieun_shim.png'
+        },
+        {
+          name: 'Hyungji Noh',
+          role: 'Researcher / Designer',
+          img: 'hyungji_noh.jpg'
+        },
+        {
+          name: 'Jundong Park',
+          role: 'Researcher / Designer',
+          img: 'jundong_park.png'
+        },
+        {
+          name: 'Iee-re Song',
+          role: 'Researcher / Designer',
+          img: 'iee-re_song_a.png'
+        },
+        {
+          name: 'Sungho Lee',
+          role: 'Ph.D. Student',
+          img: 'sungho_lee.jpg'
+        },
+        {
+          name: 'Moojin Joh',
+          role: 'MS Student',
+          img: 'moojin_joh.jpg'
+        },
+        {
+          name: 'Juyeon Kim',
+          role: 'MS Student',
+          img: 'juyeon_kim.jpg'
+        },
+        {
+          name: 'Jungwoo Kim',
+          role: 'MS Student',
+          img: 'jungwoo_kim.jpg'
+        },
+        {
+          name: 'Jae Yoon Han',
+          role: 'MS Student',
+          img: 'jaeyoon_han.jpg'
+        },
+        {
+          name: 'Lin Hur',
+          role: 'Professor / Director (Seoul)',
+          img: 'lin_hur.jpg'
+        },
+      ],
+      awardList: [
+        {
+          projectName: 'Humicotta',
+          awardName: 'IDEA Silver',
+          year: '2017'
+        },
+        {
+          projectName: 'S.Cone',
+          awardName: 'IDEA Winner',
+          year: '2017'
+        },
+        {
+          projectName: 'Light Funnel',
+          awardName: 'IDEA Winner',
+          year: '2017'
+        },
+        {
+          projectName: 'Maasai Smart Cane',
+          awardName: 'IDEA Silver',
+          year: '2017'
+        },
+        {
+          projectName: 'Culture Boxchool',
+          awardName: 'iF Product Design Award Silver',
+          year: '2017'
+        },
+        {
+          projectName: 'Alive Tent',
+          awardName: 'IDEA Winner',
+          year: '2016'
+        },
+        {
+          projectName: 'Tent 3.0',
+          awardName: 'Reddot Design Concept Winner',
+          year: '2015'
+        },
+        {
+          projectName: 'Snow Energy',
+          awardName: 'Reddot Design Concept Winner',
+          year: '2015'
+        },
+        {
+          projectName: 'T2B',
+          awardName: 'IDEA Silver',
+          year: '2015'
+        },
+        {
+          projectName: 'Printing Solar Cell',
+          awardName: 'IDEA Bronze',
+          year: '2015'
+        },
+        {
+          projectName: 'Roll Di',
+          awardName: 'IDEA Bronze',
+          year: '2015'
+        },
+        {
+          projectName: 'D’light',
+          awardName: 'iF Product Design Award Winner',
+          year: '2014'
+        },
+        {
+          projectName: 'Stream Cooler',
+          awardName: 'iF Product Design Award Winner',
+          year: '2014'
+        },
+        {
+          projectName: 'Hugdoll',
+          awardName: 'iF Product Design Award Winner',
+          year: '2014'
+        },
+        {
+          projectName: 'E+ Dumbbell',
+          awardName: 'iF Universal Design Award Winner',
+          year: '2014'
+        },
+        {
+          projectName: 'Flipour',
+          awardName: 'iF Universal Design Award Consumer Favorite',
+          year: '2014'
+        },
+        {
+          projectName: 'D’light',
+          awardName: 'Good Design Award Best 100',
+          year: '2013'
+        },
+        {
+          projectName: 'D’light',
+          awardName: 'IDEA Winner',
+          year: '2013'
+        },
+        {
+          projectName: 'NAMSUN Milling Machine',
+          awardName: 'IDEA Bronze',
+          year: '2012'
+        },
+        {
+          projectName: 'Sound Spray',
+          awardName: 'IDEA Winner',
+          year: '2012'
+        },
+        {
+          projectName: 'Grass Paint',
+          awardName: 'Reddot Design Concept Winner',
+          year: '2011'
+        },
+        {
+          projectName: 'Puzzle Furniture',
+          awardName: 'Reddot Design Concept Winner',
+          year: '2011'
+        },
+        {
+          projectName: 'Heartea',
+          awardName: 'iF Product Design Award Winner',
+          year: '2011'
+        },
+        {
+          projectName: 'Pumpack',
+          awardName: 'Reddot Design Concept Winner',
+          year: '2011'
+        },
+        {
+          projectName: 'Grass Paint',
+          awardName: 'Taiwan International Design Competition Honorable Mention',
+          year: '2011'
+        },
+        {
+          projectName: 'Lovepot',
+          awardName: 'Chicago Good Design Award Winner',
+          year: '2011'
+        },
+        {
+          projectName: 'padBACK',
+          awardName: 'Index Award Jury Special Award',
+          year: '2011'
+        },
+        {
+          projectName: 'LockOn',
+          awardName: 'Reddot Design Concept Winner',
+          year: '2010'
+        },
+        {
+          projectName: 'Heartea',
+          awardName: 'IDEA Winner',
+          year: '2010'
+        },
+        {
+          projectName: 'Lovepot',
+          awardName: 'IDEA Winner',
+          year: '2010'
+        },
+        {
+          projectName: 'Heartea',
+          awardName: 'Reddot Design Award',
+          year: '2010'
+        },
+        {
+          projectName: 'Lovepot',
+          awardName: 'I.D Magazine Annual Review',
+          year: '2010'
+        },
+        {
+          projectName: 'Heartea',
+          awardName: 'Good Design Award Winner',
+          year: '2010'
+        },
+        {
+          projectName: 'Lovepot',
+          awardName: 'iF Product Design Award Winner',
+          year: '2010'
+        },
+        {
+          projectName: 'Poosh',
+          awardName: 'Reddot Design Concept Winner',
+          year: '2009'
+        },
+        {
+          projectName: 'Lovepot',
+          awardName: 'Good Design Award Winner',
+          year: '2009'
+        },
+        {
+          projectName: 'Crosscube',
+          awardName: 'IDEA Silver',
+          year: '2008'
+        },
+        {
+          projectName: 'Roly Poly Pot',
+          awardName: 'IDEA Silver',
+          year: '2008'
+        },
+        {
+          projectName: 'Teabag Coaster',
+          awardName: 'International Competition Nagoya Design Do! Honerable Mention',
+          year: '2008'
+        },
+        {
+          projectName: 'Roly Poly Pot',
+          awardName: 'Reddot Design Concept Best of Best',
+          year: '2007'
+        },
+        {
+          projectName: 'Cloth Tag',
+          awardName: 'Reddot Design Concept Best',
+          year: '2007'
+        },
+        {
+          projectName: 'Winteller',
+          awardName: 'Taiwan International Design Competition',
+          year: '2007'
+        },
+        {
+          projectName: 'bottumup',
+          awardName: 'Taiwan International Design Competition Gold',
+          year: '2006'
+        },
+        {
+          projectName: 'Antenna',
+          awardName: 'Taiwan International Design Competition Award of Excellence',
+          year: '2006'
+        },
+        {
+          projectName: 'Hello Tag',
+          awardName: 'Taiwan International Design Competition Award of Excellence',
+          year: '2006'
+        },
+      ],
+      paperList: [
+        {
+          title: 'Designing Light-Pipe Appropriate Technology to Improve Daytime Lighting Environment of House in Off-Grid Afica',
+          author: 'Suhong Chu',
+          year: '2017'
+        },
+        {
+          title: 'Smoke Display: An Ephemeral Display Using Smoking Situations for Displaying Smoking Warning Messages',
+          author: 'JongUk Im',
+          year: '2017'
+        },
+        {
+          title: 'Tempocube: Development of Adaptable Physical Kinetic Module for Music',
+          author: 'Jiyoung Seok',
+          year: '2016'
+        },
+        {
+          title: 'Development of Product Pairing Guideline for Consumable and Donated Products through Common Attributes',
+          author: 'Soojeong Kook',
+          year: '2016'
+        },
+        {
+          title: 'Research on Fair Trade Handcrafts Design to Increase Purchase Intention',
+          author: 'Seobin Oh ',
+          year: '2015'
+        },
+        {
+          title: 'Designing Unique Products with Self-Morphing Randomness',
+          author: 'Kyunghyun Kim',
+          year: '2013'
+        },
+        {
+          title: 'Viscerally Uncomfortable Interaction on Everyday Products—a Case of Bar Table Design',
+          author: 'Eunjung Lee',
+          year: '2013'
+        },
+        {
+          title: "Developing Water Container Based on the Concept of 'Properties-Centered Design'",
+          author: 'Sungho Lee',
+          year: '2012'
+        },
+        {
+          title: 'Philanthropic Reuse System Design for Enhancing Public Participation',
+          author: 'Jieun Shim',
+          year: '2012'
+        },
+        {
+          title: 'In-Joy Vending Machine: New Product Development Inspired by Rube Goldberg Invention',
+          author: 'Boram Won',
+          year: '2012'
+        },
+        {
+          title: 'The Influence of Charitable Item’s Design Factor on Non-Profit Organization‘s Brand Personality',
+          author: 'Sungjong Park',
+          year: '2010'
+        },
+        {
+          title: 'A Study on Sensory and Emotional Responses According to Tactile Attributes of Surface Texture: with Emphasis on the Application of Surface Texture on Mobile Devices',
+          author: 'Dami Choe',
+          year: '2010'
+        },
+        {
+          title: 'Design Strategy for Positive Purchase Intention of PCR (Post Consumer Recycled) Package with the Focus on Staples',
+          author: 'Howon Son',
+          year: '2010'
+        },
+        {
+          title: 'Design for Enhancing the Relationship between Human and Plants: Focusing on Plant Pot Applied Interactivity and Emotional Communication',
+          author: 'Joohyeon Oh',
+          year: '2010'
+        },
+        {
+          title: 'A Study on Point-of-Purchase Design Method for Reducing Environmental Impact under Hypermarket Condition',
+          author: 'Jieun Yang',
+          year: '2009'
+        },
+        {
+          title: '@mail : Emotional Communication System with Life Logging via Email',
+          author: 'Yuree Stacy Lim',
+          year: '2009'
+        },
+        {
+          title: 'Scent Blossom: Olfactory as a Medium for Symbolic Information Display',
+          author: 'Eunvit Chung',
+          year: '2008'
+        },
+        {
+          title: 'Linkup System—Sustainable Design Development by Re-Using Everyday Objects',
+          author: 'Seongki Sohn',
+          year: '2008'
+        },
+      ],
+      feedList: [
+        {
+          date: '2019.12.12',
+          text: "Prof. Andrea Bianchi and his wife have joined the donation of 'nanum' with the purchase of the D'light",
+          imgList: ['2019.12.12-0.jpg'],
+        },
+        {
+          date: '2019.11.08',
+          text: "Prof. Bae signed autographs for those who want to donate",
+          imgList: ['2019.11.08-0.jpg','2019.11.08-1.jpg'],
+        },
+        {
+          date: '2019.10.31',
+          text: "ID+IM participated in the 2019 OPEN KAIST Exhibition",
+          imgList: ['2019.10.31-0.jpg','2019.10.31-1.jpg'],
+        },
+        {
+          date: '2019.09.19',
+          text: "ID+IM, participated in London Design Fair 2019",
+          imgList: ['2019.09.19-0.jpg','2019.09.19-1.jpg','2019.09.19-2.jpg'],
+        },
+      ],
+      pressList: [
+        {
+          date: '2019.11.27',
+          // text: "ID+IM Design Lab Designed the New Jeju Yong Am Soo Bottle for Orion Corp.",
+          text: "ID+IM DESIGN LAB DESIGNED THE NEW JEJU YONG AM SOO BOTTLE FOR ORION CORP.",
+          imgList: [],
+          link: 'http://www.fnnews.com/news/201911261547258481',
+        },
+        {
+          date: '2019.05.01',
+          // text: "Prof. Bae conducted a LSIS news interview",
+          text: "PROF. BAE CONDUCTED A LSIS NEWS INTERVIEW",
+          imgList: [],
+          link: 'http://www.lsiswebzine.com/2019_05/sub07.html',
+        },
+        {
+          date: '2019.04.15',
+          // text: "'D'light' from the ID+IM Design Lab was introduced in 'INTERIOR DESIGN'",
+          text: "D'LIGHT WAS INTRODUCED IN INTERIOR DESIGN",
+          imgList: [],
+          link: 'https://www.interiordesign.net/articles/16279-15-young-design-talents-to-watch-from-salone-del-mobile/',
+        },
+        {
+          date: '2019.04.02',
+          text: "ID KAIST WAS INTERVIEWED IN NAVER DESIGN PRESS",
+          imgList: [],
+          link: 'https://blog.naver.com/designpress2016/221503586372',
+        },
+        {
+          date: '2018.11.25',
+          text: "PROF BAE WAS INTERVIEWED IN YTN INNOVATION KOREA PROGRAM",
+          imgList: [],
+          link: 'https://www.youtube.com/watch?v=oQGkIh0jv6Y',
+        },
+        {
+          date: '2018.11.22',
+          text: "PROF. BAE WAS INTERVIEWED BY CENS BRAND PEOPLE",
+          imgList: [],
+          link: 'https://www.youtube.com/watch?v=cFswGmixWTM',
+        },
+        {
+          date: '2017.09.15',
+          text: "ID+IM WAS BROADCASTED ON YTN NEWS FOR WINNINGG 4 AWARDS AT IDEA",
+          imgList: [],
+          link: 'https://www.youtube.com/watch?v=h8R6X587kHY',
+        },
+        {
+          date: '2017.01.30',
+          text: "PROF. BAE APPEARED ON ARIRANG SPECIAL",
+          imgList: [],
+          link: 'https://www.youtube.com/watch?v=_l1kzJgcN3E&feature=youtu.be',
+        },
       ]
     }
   },
@@ -260,10 +907,9 @@ export default {
     console.log(this.$route);
   },
   updated: function() {
-    console.log(this.$route);
+    console.log(this.$route.params.dir1);
   },
   methods : {
-    formatIndex : index => index < 10 ? '0'+index.toString() : index,
     pushRoute: function(dir1, dir2, dir3, hash) {
       this.$router.push(
         {
@@ -292,9 +938,18 @@ export default {
         ()=>{/* override abort callback */}
       );
     },
+    handleWorkSelect: function(index) {
+       this.pushRoute('work', index.toString());
+    }
   },
   components: {
-    
+    HomeBase,
+    AboutBase,
+    WorkBase,
+    NewsBase,
+    WorkPaper,
+    AwardsPaper,
+    PapersPaper
   },
   directives: {
 
@@ -302,12 +957,15 @@ export default {
   // Need to change the number 255 into a variable window size. window.width??
   // change to other option than <computed>, so that can be used multiple timesp5.HighPass() 
   computed: {
-    rand_x: function() {
-      return Math.floor(Math.random() * 255 + 200) + "px" ;
+    showWorkPaper: function() {
+      return this.$route.params.dir1 === 'work' && this.$route.params.dir2;
     },
-    rand_y: function() {
-      return Math.floor(Math.random() * 255 + 100) + "px" ;
-    }
+    showAwardsPaper: function() {
+      return this.$route.params.dir1 === 'about' && this.$route.params.dir2 === 'awards';
+    },
+    showPapersPaper: function() {
+      return this.$route.params.dir1 === 'about' && this.$route.params.dir2 === 'papers';
+    },
   }
 }
 
@@ -316,410 +974,91 @@ export default {
 
 
 <style lang="scss">
-@import './normalize.scss';
-
-
-// Fonts
-@font-face {
-  font-family: "Suisse";
-  src: url("assets/fonts/Suisse BP Int'l Regular_0.otf") format("opentype");
-  font-weight: 400;
-  font-style: normal;
-}
-@font-face {
-  font-family: "Suisse";
-  src: url("assets/fonts/Suisse BP Int'l Light_0.otf") format("opentype");
-  font-weight: 300;
-  font-style: normal;
-}
-@font-face {
-  font-family: "Suisse";
-  src: url("assets/fonts/Suisse BP Int'l Medium_1.otf") format("opentype");
-  font-weight: 600;
-  font-style: normal;
-}
-@font-face {
-  font-family: "SuisseMono";
-  src: url("assets/fonts/SuisseIntlMono-Regular.otf") format("opentype");
-  font-style: normal;
-}
-
-
-// CSS Variables
-:root {
-  --top-1: 30px;
-  --top-2: 100px;
-  --left-1: 30px;
-  --left-2: 180px;
-  --left-3: 400px;
-  --indent: 20px;
-  --list-height: 35px;
-}
-
-body {
-  position: fixed;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
-  background: blue;
-  overflow: hidden;
-}
-html {
-  line-height: 1;
-}
-
-h1 {
-  margin: 0;
-  font-size: auto;
-  font-weight: 400;
-}
-
-h2 {
-  margin: 0;
-  font-size: auto;
-  font-weight: 400;
-}
-
-p {
-  margin: 0;
-}
-
-ul {
-  margin: 0;
-  padding: 0;
-  list-style-type: none;
-}
-
-div {
-  box-sizing: border-box;
-}
-
+@import './css/normalize.scss';
+@import './css/global.scss';
 
 // Styles
 #app {
-  font-family: Suisse, Helvetica, Arial, sans-serif;
+  --indent: 17px;
+
+  font-family: AGBook, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  position: absolute;
   top: 0; left: 0;
   width: 100%; height: 100%;
-  overflow: scroll;
+  overflow: scroll; 
+  font-size: var(--screen-font-size);
+  background: var(--color-background);
+  letter-spacing: -0.01em;
 
-  
-  
-  
-  .back-layer {
-    position: fixed;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    background: #f82;
-    color:#a30;
-    font-size: 30px;
-    overflow-y: scroll;
-    
-    .logo-box {
-      position: fixed;
-      top: var(--top-1);
-      left: var(--left-1);
+
+  .logo {
+    position: relative;
+    grid-row: 2 / span 1;
+    grid-column: 2 / span 1;
+    display: inline-block;
+    pointer-events: auto;
+
+    h1 {
+      display: inline;
       cursor: pointer;
-
-      h1 {
-        font-size: 1em;
-      }
     }
+  }
 
-    /* List Shared Style */
-    ul { 
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-      overflow: visible;
-      width: 0;
-      li {
-        height: 1.15em;
-        height: var(--list-height);
-        position: relative;
+  .nav-list {
+    position: absolute;
+    grid-row: 3 / span 1;
+    grid-column: 2 / span 1;
+    pointer-events: auto;
+
+    &.top {
+      top: 020;
+      
+      .button {
+        transition: transform 0.1s;
         padding-left: var(--indent);
-        transition: transform 0.1s ;
         transform: translateX(calc(-1 * var(--indent)));
-        overflow: hidden;
-        cursor: pointer;
-
         &:hover {
           transform: translateX(0);
-          color: #03f;
-        }
-
-        h2 {
-          font-size: 30px;
-          line-height: var(--list-height);
-          white-space: nowrap;
-          
-          &::selection, span::selection{
-            background: #0f0;
-          }
-        }
-
-        &.on {
-          transform: translateX(0);
-          color: #03f;
         }
       }
     }
-
-    .menu ul {
-      position: fixed;
-      top: var(--top-2);
-      left: var(--left-1);
-
-      &.bottom {
-        top: auto;
-        bottom: var(--top-1);
-      }
-    }
-
-    .sub-menu ul {
-      position: fixed;
-      top: var(--top-2);
-      left: var(--left-2);
-      /* z-index: -1; */
-    }
-
-    .work-list {
-      ul {
-        /* position: absolute; */
-        position: relative;
-        margin: var(--top-2) 0 var(--top-2) var(--left-3);
-        z-index:100;
-
-        h2 {
-          span {
-            font-size: 28px;
-            font-family: SuisseMono;
-            margin: 0 0.8em 0 0;
-          }
-        }
-      }
-    }
-
-    .appear-enter-active, .appear-leave-active {
-      transition: opacity 0.4s, transform 0.4s;
-    }
-    .appear-enter, .appear-leave-to /* .fade-leave-active below version 2.1.8 */ {
-      opacity: 0;
-      transform: translate(-20px, 0);
-    }
-  }
-
-  
-
-
-  .front-layer {
-    position: relative;
-    width: 100vw;
-    padding: 50vh 0 50vh 10%;
-    /* will-change: transform; */
-
-    .click-layer {
-      position: absolute;
-      top: 0; left: 0; bottom: 0; right: 0;
-
-      &:hover {
-        cursor: e-resize;
-      }
-    }
-
-    .work-paper {
-      position: relative;
-      width: 100%; 
-      //height: 2000px;
-      z-index: 11;
-      background: white;
-      box-shadow: 0 10px 20px 5px rgba(0,0,0,0.2);
-      border-radius: 2px;
+    &.bottom {
+      bottom: 0;
     }
     
   }
-  .slide-enter-active, .slide-leave-active {
-      transition: transform 0.5s;
-      transition-timing-function: cubic-bezier(0.165, 0.840, 0.440, 1.000);
-    }
-    .slide-enter, .slide-leave-to {
-      transform: translate(100vw, 0);
-    }
- 
 
+  .backdrop {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100vw;
+    height: 100%;
+    overflow-y: scroll;
+    z-index: 20;
+    cursor: e-resize;
 
-  .work-paper {
-    position: relative;
-    display: grid;
-    // padding: 48px;
-    // grid-template-columns: repeat(16,102px);
-    // grid-template-columns: repeat(16,1fr);
-    grid-template-columns: 48px repeat(16,minmax(72px, 1fr)) 48px;
-    grid-template-rows: 48px repeat(50, 102px) 48px;
-    min-height: 1000px;
+  }
 
-    .header-barcode {
-      grid-area: 2 / 2 / span 1 / span 3;
-
-      font-family: Suisse;
-      font-size: 60px;
-      font-weight: 600;
-    }
-    .header-info {
-      grid-area : 2 / 7 / span 1 /span 5;
-
-      font-family: Suisse;
-      font-size: 21px;
-      line-height: 1.2;
-    }
-
-    .contentsList {
-      position: fixed;
-      right: 48px;
-      text-align: right;
-
-      font-family: Suisse;
-      font-weight: 600;
-      font-size: 18px;
-      line-height: 1.2;
-
-      opacity: 30%;
-    }
-
-    .body-title {
-      grid-area: 5 / 2 / span 1 / span 10;
-
-      font-family: Suisse;
-      font-weight: 600;
-      font-size: 120px;
-      line-height: 1.2;
-    }
-    .body-intro{
-      grid-area: 6 / 2 / span 2 / span 7;
-
-      font-family: Suisse;
-      font-weight: 600;
-      font-size: 30px;
-      line-height: 1.2;
-
-      display: flex;
-      align-items: center;
-    }
-    .img-01 {
-      grid-area: 8 / 1 / span 8 / span 18;
-      img {
-         object-fit: cover;
-         width: 100%;
-         max-height: 100%;
-      }
-    }
-
-    .caption {
-      margin-top: 20px;
-      margin-left: 15px;
-
-      font-family: Suisse;
-      font-weight: 600;
-      font-size: 15px;
-      line-height: 1.2;
-    }
-
-    .body-tag-01 {
-      grid-area: 17 / 2;
-
-      font-family: SuisseMono;
-      font-weight: 600;
-      font-size: 60px;
-      line-height: 1.2;
-
-      display: flex;
-      align-items: flex-end;
-    }
-
-    .body-subtitle-01 {
-      grid-area: 17 / 4 / span 1 / span 8;
-
-      font-family: Suisse;
-      font-weight: 600;
-      font-size: 36px;
-      line-height: 1.2;
-
-      display: flex;
-      align-items: flex-end;
-
-    }
-
-    .body-detail-01 {
-      grid-area: 18 / 5 / span 1 / span 8;
-
-      font-family: Suisse;
-      font-weight: 300;
-      font-size: 21px;
-      line-height: 1.85;
-
-      padding-top: 48px;
-
-    }
-
-    .img-02 {
-      grid-area: 23 / 4 / span 8 / span 3;
-      img {
-         object-fit: cover;
-         width: 100%;
-         max-height: 100%;
-      }
-    }
-    .img-03 {
-      grid-area: 23 / 9 / span 3 / span 3;
-      img {
-         object-fit: cover;
-         width: 100%;
-         max-height: 100%;
-      }
-    }
-
-    .body-tag-02 {
-      grid-area: 29 / 2;
-
-      font-family: SuisseMono;
-      font-weight: 600;
-      font-size: 60px;
-      line-height: 1.2;
-
-      display: flex;
-      align-items: flex-end;
-    }
-
-    .body-subtitle-02 {
-      grid-area: 29 / 4 / span 1 / span 8;
-
-      font-family: Suisse;
-      font-weight: 600;
-      font-size: 36px;
-      line-height: 1.2;
-
-      display: flex;
-      align-items: flex-end;
-
-    }
-
-    .body-detail-02 {
-      grid-area: 30 / 5 / span 1 / span 8;
-
-      font-family: Suisse;
-      font-weight: 300;
-      font-size: 21px;
-      line-height: 1.85;
-
-      padding-top: 48px;
-
-    }
-
-
-
-
+  .fade-enter-active, .fade-leave-active {
+    opacity: 1;
+    transition: opacity 0.3s;
+    /* transition-timing-function: cubic-bezier(0.165, 0.840, 0.440, 1.000); */
+  }
+  .fade-enter, .fade-leave-to {
+    opacity: 0;
   } 
+
+  .slide-enter-active, .slide-leave-active {
+    transition: transform 0.6s;
+    transition-timing-function: cubic-bezier(0.165, 0.840, 0.440, 1.000);
+  }
+  .slide-enter, .slide-leave-to {
+    transform: translate(100vw, 0);
+  } 
+
+  
+ 
 
 
 }
