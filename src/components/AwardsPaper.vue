@@ -1,10 +1,13 @@
 <template>
   <div id="awards-paper">
-    <div class="awards-intro">
-      <p>
-        Our unique design process which successfully integrates functionality, usability, and aesthetics has been recognized by various design competitions worldwide. These include some of the most celebrated competitions such as Reddot, iF, and IDEA. Listed below are the awards we have been presented ever since the founding of the studio in 2006.
-      </p>
-    </div>
+
+    <h2 class="title">
+      Awards
+    </h2>
+
+    <p class="text">
+      Our unique design process which successfully integrates functionality, usability, and aesthetics has been recognized by various design competitions worldwide. These include some of the most celebrated competitions such as Reddot, iF, and IDEA. Listed below are the awards we have been presented ever since the founding of the studio in 2006.
+    </p>
     
     <div 
       class="award-row"
@@ -16,12 +19,12 @@
         {{award.year}}
       </p>
       <p
-        class="project-name">
-        {{award.projectName}}
-      </p>
-      <p
         class="award-name">
         {{award.awardName}}
+      </p>
+      <p
+        class="project-name">
+        {{award.projectName}}
       </p>
       
     </div>
@@ -67,55 +70,63 @@ export default {
   float: right;
   width: 43vw;
   min-height: 100vh;
-  margin-top: 9em;
+  margin-top: var(--top-2);
   margin-bottom: 9em;
   background: #fce333;
   /* background: #ffe; */
   border-radius: 2px;
   box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
   font-size: var(--work-font-size);
-  padding: 2em 0 3em;
+  padding: 1.7em 1.5em 3.5em 1.5em;
   cursor: default;
 
-  .awards-intro {
-    position: relative;
-    width: 100%;
-    padding: 0 5em 5em 1.4em;
-
-    p {
-      font-size: 1.6em;
-      font-weight: 500;
-      line-height: 1.15em;
-      letter-spacing: -0.01em;
-    }
+  .title {
+    display: none;
+    font-size: 1.3em;
+    font-weight: 500;
+  }
+  .text {
+    font-size: 1.4em;
+    /* font-style: italic; */
+    font-weight: 500;
+    line-height: 1.25em;
+    letter-spacing: -0.01em;
+    margin-bottom: 3em;
+    margin-right: 3.5em;
   }
 
   .award-row {
     position: relative;
     width: 100%;
-    display: grid;
-    grid-template-columns: 1.5em repeat(6, 1fr) 1.5em;
-    padding: 0 0.2em 0 0em;
+    display: flex;
+    justify-content: flex-end;
+    font-size: 0.9em;
+    /* padding: 0.2em 0; */
     
 
     .year {
-      border-top: 2px solid rgba(0,0,0,0.1);
-      grid-column: 2;
+      font-weight: 500;
+      flex: 20% 0 0;
+      border-top: 1px solid rgba(0,0,0,0.2);
       padding: 0.35em 0.2em;
+      box-sizing: border-box;
     }
-
-    .project-name {
-      border-top: 2px solid rgba(0,0,0,0.1);
-      grid-column: 3 / span 2;
-      padding: 0.35em 0.2em;
-    }
-
     .award-name {
-      border-top: 2px solid rgba(0,0,0,0.1);
-      grid-column: 5 / span 3;
+      flex: 40% 0 0;
+      border-top: 1px solid rgba(0,0,0,0.2);
       padding: 0.35em 0.2em;
-      font-style: italic;
+      padding-right: 2em;
+      /* font-style: italic; */
+      line-height: 1.25;
+      box-sizing: border-box;
     }
+    .project-name {
+      flex: 40% 0 0;
+      border-top: 1px solid rgba(0,0,0,0.2);
+      padding: 0.35em 0.2em;
+      box-sizing: border-box;
+    }
+
   }
 
 

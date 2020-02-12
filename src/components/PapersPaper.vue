@@ -69,7 +69,7 @@ export default {
   min-height: 100vh;
   margin-top: 4em;
   margin-bottom: 4em;
-  background: #77ff41;
+  background: #53f98f;
   border-radius: 2px;
   box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
   font-size: var(--work-font-size);

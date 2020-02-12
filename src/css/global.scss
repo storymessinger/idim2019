@@ -57,21 +57,25 @@
 
 // CSS Variables
 :root {
-  --top-1: 20px;
+  --top-1: 0.5em;
   --top-2: 100px;
-  --left-1: 20px;
-  --left-2: 280px;
+
+  --left-1: 0.7em;
+  --left-2: 220px;
   --left-3: 600px;
+  --left-4: 750px;
+  --left-5: 900px;
 
   --indent: 20px;
   --screen-font-size: 18px;
-  --list-height: 1.4em;
+  --line-height-body: 1.35em;
 
-  --color-background: #42b;
-  --color-text: #88f;
-  --color-text-hover: #ff8;
-  --color-text-select: #ff8;
-  --color-highlight-text: #0f0;
+
+  --color-background: #e8eaef;
+  --color-text: #222;
+  --color-text-hover: #222;
+  --color-text-select: #222;
+  --color-highlight-text: #099;
   --color-highlight: #0f0;
 
   --work-paper-width: 100%;
@@ -107,13 +111,17 @@
 }
 
 
-
 // Global Style Overrides 
 body {
-  background: var(--color-background);
-  line-height: 1;
+  background: inherit;
+  // background: #fe2;
+  // line-height: 1;
   overscroll-behavior-y: none;
 
+  ::selection, span::selection{
+    background: var(--color-highlight);
+    color: var(--color-highlight-text);
+  }
   &.prevent-scroll {
     /* height: 100vh; */
     overflow-y: hidden;
@@ -121,7 +129,7 @@ body {
 }
 
 html {
-  position: relative;
+  background: var(--color-background);
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -148,103 +156,20 @@ div {
   box-sizing: border-box;
 }
 
-// /* List Shared Style */
-// ul { 
-//   color: var(--color-text);
-//   li {
-//     /* position: relative;        
-//     overflow: hidden;
-//     display: block; */
-
-//     & > .button{
-//       /* position: relative; */
-//       padding-left: var(--indent);
-//       line-height: var(--list-height);
-//       /* line-height: 200px; */
-//       /* white-space: nowrap; */
-//       transform: translateX(calc(-1 * var(--indent)));
-//       transition: transform 0.1s ;
-//       display: inline-block;
-//       text-decoration: inherit; 
-//       /* color: inherit; */
-//       cursor: pointer;
-//       color: red;
-//       &::selection, span::selection{
-//         background: var(--color-highlight);
-//         color: var(--color-highlight-text);
-//       }
-
-//       &:hover {
-//         color: var(--color-text-hover);
-//       }
-//     }
-
-//     &.selected {
-//       color: var(--color-text-select);
-//     }
-
-//     &.shift {
-//       &.selected {
-//         h2, a {
-//           transform: translateX(0);
-//         }
-//       }
-//       h2, a {
-//         &:hover {
-//           transform: translateX(0);
-//         }
-//       }
-//     }
-
-//     &.underline {
-//       &.selected {
-//         h2, a {
-//           text-decoration: underline;
-//         }
-//       }
-//       h2, a {
-//         cursor: context-menu;
-//         &:hover {
-//           text-decoration: underline;
-//         }
-//       }
-//     }
-//     &.italic {
-      
-//       &.selected {
-//         h2, a {
-//           transform: translateX(calc(-1 * var(--indent))) skewX(-13deg);
-//           transform-origin: 0% 1em;
-//         }
-//       }
-//       h2, a {
-//         transition: transform 0s;
-//         cursor: pointer;
-//         &:hover {
-//           transform: translateX(calc(-1 * var(--indent))) skewX(-13deg);
-//           transform-origin: 0% 1em;
-          
-//         }
-//       }
-//     }
-//   }
-// }
+// List Shared Style 
+ul {
+  li {
+    overflow: hidden;
+  }
+}
 
 .button{
   color: var(--color-text); 
-  /* position: relative; */
-  line-height: var(--list-height);
+  line-height: var(--line-height-body);
   white-space: nowrap;
-  // transform: translateX(calc(-1 * var(--indent)));
   display: inline-block;
   text-decoration: inherit; 
-  /* color: inherit; */
   cursor: pointer;
-  // color: red;
-  &::selection, span::selection{
-    background: var(--color-highlight);
-    color: var(--color-highlight-text);
-  }
 }
 
 .grid-base-fixed {
@@ -260,7 +185,6 @@ div {
 
 .grid-base-scroll {
   position: relative;
-  height: 100%; width: 100%;
   display: grid;
   grid-template-columns: 0.8em repeat(6, 1fr) 0.8em;
   grid-template-rows: 0.8em 4em auto 4em 0.8em;

@@ -1,74 +1,73 @@
-<template> <div id="app">
-    
-    <div class="grid-base-fixed">
-      <div class="logo">
-        <!-- to be replaced by img? -->
-        <h1 @click="pushRoute()">ID+IM</h1> 
-      </div>
+<template>
+  <div id="app">
+    <h1
+      class="logo"
+      @click="pushRoute()">
+      ID+IM
+    </h1> 
 
-      <nav class="nav-list top">
-        <ul>
-          <li>
-            <h2
-              :class="`
-                button
-                ${$route.params.dir1 === 'work' ? 'selected' : ''}
-                `"
-              @click="pushRoute('work', null, null)"
-              >
-              Work
-            </h2>
-          </li>
-          <li>
-            <h2
-              :class="`
-                button
-                ${$route.params.dir1 === 'about' ? 'selected' : ''}
-                `"
-              @click="pushRoute('about')"
-              >
-              About
-            </h2>
-          </li>
-          <li>
-            <h2 
-              :class="`
-                button
-                ${$route.params.dir1 === 'news' ? 'selected' : ''}
-                `"
-              @click="pushRoute('news')"
-              >
-              News
-            </h2>
-          </li>
-        </ul>
-      </nav>
+    <nav class="menu-list top">
+      <ul>
+        <li>
+          <h2
+            :class="`
+              button
+              ${$route.params.dir1 === 'work' ? 'selected' : ''}
+              `"
+            @click="pushRoute('work', null, null)"
+            >
+            Work
+          </h2>
+        </li>
+        <li>
+          <h2
+            :class="`
+              button
+              ${$route.params.dir1 === 'about' ? 'selected' : ''}
+              `"
+            @click="pushRoute('about')"
+            >
+            About
+          </h2>
+        </li>
+        <li>
+          <h2 
+            :class="`
+              button
+              ${$route.params.dir1 === 'news' ? 'selected' : ''}
+              `"
+            @click="pushRoute('news')"
+            >
+            News
+          </h2>
+        </li>
+      </ul>
+    </nav>
 
-      <nav class="nav-list bottom">
-        <ul>
-          <li >
-            <h2
-              :class="`
-                button
-                ${$route.params.dir1 === 'contact' ? 'selected' : ''}
-              `"
-              >
-              Contact
-            </h2>
-          </li>
-          <li>
-            <a
-              :class="`
-                button
-              `"
-              href="http://www.nanumproject.com/" target="_blank"
-              >
-              Shop
-            </a>
-          </li>
-        </ul>
-      </nav>
-    </div>
+    <nav class="menu-list bottom">
+      <ul>
+        <li >
+          <h2
+            :class="`
+              button
+              ${$route.params.dir1 === 'contact' ? 'selected' : ''}
+            `"
+            >
+            Contact
+          </h2>
+        </li>
+        <li>
+          <a
+            :class="`
+              button
+            `"
+            href="http://www.nanumproject.com/" target="_blank"
+            >
+            Shop
+          </a>
+        </li>
+      </ul>
+    </nav>
 
 
     <transition name="fade" mode="out-in">
@@ -131,12 +130,6 @@
         </PapersPaper>
       </div>
     </transition>
-    
-    
-    
-
-    
-    
   </div>
 </template>
 
@@ -852,7 +845,7 @@ export default {
         {
           date: '2019.11.27',
           // text: "ID+IM Design Lab Designed the New Jeju Yong Am Soo Bottle for Orion Corp.",
-          text: "ID+IM DESIGN LAB DESIGNED THE NEW JEJU YONG AM SOO BOTTLE FOR ORION CORP.",
+          text: "ID+IM Design Lab Designed The New Jeju Yong Am Soo Bottle For Orion Corp.",
           imgList: [],
           link: 'http://www.fnnews.com/news/201911261547258481',
         },
@@ -890,7 +883,7 @@ export default {
         },
         {
           date: '2017.09.15',
-          text: "ID+IM WAS BROADCASTED ON YTN NEWS FOR WINNINGG 4 AWARDS AT IDEA",
+          text: "ID+IM WAS BROADCASTED ON YTN NEWS FOR WINNING 4 AWARDS AT IDEA",
           imgList: [],
           link: 'https://www.youtube.com/watch?v=h8R6X587kHY',
         },
@@ -979,40 +972,33 @@ export default {
 
 // Styles
 #app {
-  --indent: 17px;
-
+  --indent: 17px; 
   font-family: AGBook, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  top: 0; left: 0;
   width: 100%; height: 100%;
-  overflow: scroll; 
   font-size: var(--screen-font-size);
-  background: var(--color-background);
   letter-spacing: -0.01em;
 
 
   .logo {
-    position: relative;
-    grid-row: 2 / span 1;
-    grid-column: 2 / span 1;
+    position: fixed;
+    /* grid-row: 2 / span 1;
+    grid-column: 2 / span 1; */
     display: inline-block;
     pointer-events: auto;
-
-    h1 {
-      display: inline;
-      cursor: pointer;
-    }
+    top: var(--top-1);
+    left: var(--left-1);
+    cursor: pointer
   }
 
-  .nav-list {
-    position: absolute;
-    grid-row: 3 / span 1;
-    grid-column: 2 / span 1;
+  .menu-list {
+    position: fixed;
     pointer-events: auto;
+    left: var(--left-1);
 
     &.top {
-      top: 020;
+      top: var(--top-2);
       
       .button {
         transition: transform 0.1s;
@@ -1021,12 +1007,14 @@ export default {
         &:hover {
           transform: translateX(0);
         }
+        &.selected {
+          transform: translateX(0);
+        }
       }
     }
     &.bottom {
-      bottom: 0;
+      bottom: var(--top-1);
     }
-    
   }
 
   .backdrop {
