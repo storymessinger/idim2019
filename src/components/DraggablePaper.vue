@@ -2,11 +2,10 @@
   <div 
     class="draggable-paper" 
     :style="`
-      height: ${height};
-      width: ${width};
       left: ${x};
       top: ${y};
-      `">
+    `"
+  >
     <slot></slot>
   </div>
 </template>
@@ -32,13 +31,7 @@ export default {
 <style scoped lang="scss">
 .draggable-paper {
   position: fixed;
-  top: 30%; left: 30%;
-  width: 500px;
-  height: 300px;
-  background: #fff;
   box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
-  /* border-radius: 1em; */
-  overflow-y: scroll;
   cursor: all-scroll;
   user-select: none;
 

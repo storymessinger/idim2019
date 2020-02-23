@@ -14,7 +14,10 @@
               :class="`
                 button
                 ${$route.params.dir2 === 'awards' ? 'selected' : ''}`"
-              @click="pushRoute('about', 'awards')"
+              @click="
+                pushRoute('about', 'awards');
+                disableBodyScroll();
+                "
               >
               <span>A</span>Awards
             </h3>
@@ -24,7 +27,10 @@
               :class="`
                 button
                 ${$route.params.dir2 === 'papers' ? 'selected' : ''}`"
-              @click="pushRoute('about', 'papers')"
+              @click="
+                pushRoute('about', 'papers');
+                disableBodyScroll();
+                "
               >
               <span>B</span>Papers
             </h3>
@@ -91,6 +97,7 @@ export default {
   props: {
     memberList: Array,
     pushRoute: Function,
+    disableBodyScroll: Function,
   },
   computed: {
     memberMinusBae: function(){return this.memberList.filter(member => member.name !== 'Sangmin Bae' )}
@@ -138,7 +145,7 @@ export default {
     .big-photo {
       grid-column: 4 / 8;
       width: 100%;
-      mix-blend-mode: multiply;
+      /* mix-blend-mode: multiply; */
       margin-bottom: 0.9em;
       margin-top: 0.2em;
       
@@ -164,7 +171,7 @@ export default {
       
       img {
         width: 100%;
-        mix-blend-mode: multiply;
+        /* mix-blend-mode: multiply; */
       }
     }
   }

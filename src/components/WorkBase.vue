@@ -1,7 +1,6 @@
 <template>
   <div id="work-base">
 
-    <!-- <div class="grid-base-scroll"> -->
       <nav 
         v-if="$route.params.dir1 === 'work'"
         class="work-list">
@@ -20,7 +19,6 @@
           </li>
         </ul>
       </nav>
-    <!-- </div> -->
 
     <nav class="filter-list">
       <ul>
@@ -102,38 +100,51 @@ export default {
 <style scoped lang="scss">
 #work-base {
 
-  .work-list {
+  & > .work-list {
     display: inline-block; // width wrap to content
     margin-top: var(--top-2);
     margin-left: var(--left-2);
     margin-bottom: var(--top-2);
 
-    .button {
-      cursor: context-menu;
-      &:hover {
-        text-decoration: underline;
-      }
-      &.selected {
-        text-decoration: underline;
-      }
-      span {
-        display: inline-block;
-        width: 0.61em;
-        text-align: center;
-        &:last-of-type {
-          margin-right: 0.75em;
+    & > ul {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+
+      & > li {
+
+        & .button {
+          cursor: context-menu;
+          &:hover {
+            text-decoration: underline;
+            /* color: #00f; */
+            /* background: #00f;
+            color: white; */
+            /* background: black; */
+            
+          }
+          &.selected {
+            text-decoration: underline;
+          }
+          span {
+            display: inline-block;
+            width: 0.61em;
+            text-align: center;
+            &:last-of-type {
+              margin-right: 0.75em;
+            }
+          }
         }
       }
     }
   }
-  
 
   .filter-list {
     position: fixed;
     top: var(--top-2);
     left: var(--left-3);
 
-    ul {
+    & > ul {
       &.tag-box {
         margin-top: var(--line-height-body);
       }
@@ -142,8 +153,9 @@ export default {
         column-count: 2;
         float: left;
       }
-      li {
+      & > li {
         .button {
+          // filter styling
         }
       }
     }

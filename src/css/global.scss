@@ -58,9 +58,10 @@
 // CSS Variables
 :root {
   --top-1: 0.5em;
+  --top-1: 9px;
   --top-2: 100px;
 
-  --left-1: 0.7em;
+  --left-1: 12px;
   --left-2: 220px;
   --left-3: 600px;
   --left-4: 750px;
@@ -75,8 +76,9 @@
   --color-text: #222;
   --color-text-hover: #222;
   --color-text-select: #222;
-  --color-highlight-text: #099;
-  --color-highlight: #0f0;
+  // --color-highlight-text: rgba(0,0,0,0);
+  // --color-highlight: #00f;
+  --color-highlight: #fcc;
 
   --work-paper-width: 100%;
   --work-font-size: 20px;
@@ -114,6 +116,7 @@
 // Global Style Overrides 
 body {
   background: inherit;
+  // background: #222;
   // background: #fe2;
   // line-height: 1;
   overscroll-behavior-y: none;
@@ -161,6 +164,11 @@ ul {
   li {
     overflow: hidden;
   }
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
 }
 
 .button{

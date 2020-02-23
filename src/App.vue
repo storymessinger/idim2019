@@ -14,7 +14,9 @@
               button
               ${$route.params.dir1 === 'work' ? 'selected' : ''}
               `"
-            @click="pushRoute('work', null, null)"
+            @click="
+              pushRoute('work', null, null)
+            "
             >
             Work
           </h2>
@@ -25,7 +27,9 @@
               button
               ${$route.params.dir1 === 'about' ? 'selected' : ''}
               `"
-            @click="pushRoute('about')"
+            @click="
+              pushRoute('about')
+            "
             >
             About
           </h2>
@@ -36,7 +40,9 @@
               button
               ${$route.params.dir1 === 'news' ? 'selected' : ''}
               `"
-            @click="pushRoute('news')"
+            @click="
+              pushRoute('news')
+            "
             >
             News
           </h2>
@@ -50,8 +56,13 @@
           <h2
             :class="`
               button
+              contact
               ${$route.params.dir1 === 'contact' ? 'selected' : ''}
             `"
+            @click="
+              showContactPaper=true
+              disableBodyScroll();
+            "
             >
             Contact
           </h2>
@@ -60,6 +71,7 @@
           <a
             :class="`
               button
+              shop
             `"
             href="http://www.nanumproject.com/" target="_blank"
             >
@@ -87,6 +99,7 @@
         v-else-if="$route.params.dir1==='about'" 
         :pushRoute="pushRoute"
         :memberList="memberList"
+        :disableBodyScroll="disableBodyScroll"
         />
       
       <NewsBase 
@@ -98,12 +111,31 @@
         />
     </transition>
 
+    <transition
+      name="slide-up">
+      <div 
+        class="backdrop contact" 
+        v-if="showContactPaper" 
+        @click.self="
+          showContactPaper=false;
+          enableBodyScroll();
+          "
+          >
+        <ContactPaper>
+        </ContactPaper>
+      </div> 
+    </transition>
+
     <transition 
       name="slide">
       <div 
         class="backdrop" 
         v-if="showWorkPaper" 
-        @click.self="pushRoute($route.params.dir1, null, null)">
+        @click.self="
+          pushRoute($route.params.dir1, null, null)
+          enableBodyScroll();
+        "
+        >
         <WorkPaper :work="workList[parseInt($route.params.dir2)]">
         </WorkPaper>
       </div>
@@ -114,7 +146,11 @@
       <div 
         class="backdrop" 
         v-if="showAwardsPaper" 
-        @click.self="pushRoute($route.params.dir1, null, null)">
+        @click.self="
+          pushRoute($route.params.dir1, null, null)
+          enableBodyScroll();
+        "
+        >
         <AwardsPaper :awardList="awardList">
         </AwardsPaper>
       </div>
@@ -125,7 +161,11 @@
       <div 
         class="backdrop" 
         v-if="showPapersPaper" 
-        @click.self="pushRoute($route.params.dir1, null, null)">
+        @click.self="
+          pushRoute($route.params.dir1, null, null)
+          enableBodyScroll();
+        "
+        >
         <PapersPaper :paperList="paperList">
         </PapersPaper>
       </div>
@@ -142,6 +182,7 @@ import NewsBase from './components/NewsBase';
 import WorkPaper from './components/WorkPaper';
 import AwardsPaper from './components/AwardsPaper';
 import PapersPaper from './components/PapersPaper';
+import ContactPaper from './components/ContactPaper';
 
 
 export default {
@@ -149,6 +190,7 @@ export default {
   data: function(){
     return {
       slideWorkIn: false,
+      showContactPaper: false,
       workList: [
         {
           name: 'The.Wave.Talk',
@@ -845,51 +887,51 @@ export default {
         {
           date: '2019.11.27',
           // text: "ID+IM Design Lab Designed the New Jeju Yong Am Soo Bottle for Orion Corp.",
-          text: "ID+IM Design Lab Designed The New Jeju Yong Am Soo Bottle For Orion Corp.",
+          text: "ID+IM design lab designed the new Jeju Yong Am Soo bottle for Orion Corp.",
           imgList: [],
           link: 'http://www.fnnews.com/news/201911261547258481',
         },
         {
           date: '2019.05.01',
           // text: "Prof. Bae conducted a LSIS news interview",
-          text: "PROF. BAE CONDUCTED A LSIS NEWS INTERVIEW",
+          text: "Prof. Bae conducted a LSIS news interview",
           imgList: [],
           link: 'http://www.lsiswebzine.com/2019_05/sub07.html',
         },
         {
           date: '2019.04.15',
           // text: "'D'light' from the ID+IM Design Lab was introduced in 'INTERIOR DESIGN'",
-          text: "D'LIGHT WAS INTRODUCED IN INTERIOR DESIGN",
+          text: "D'Light was introduced in Interior Design",
           imgList: [],
           link: 'https://www.interiordesign.net/articles/16279-15-young-design-talents-to-watch-from-salone-del-mobile/',
         },
         {
           date: '2019.04.02',
-          text: "ID KAIST WAS INTERVIEWED IN NAVER DESIGN PRESS",
+          text: "ID KAIST was interviewed in Naver Design Press",
           imgList: [],
           link: 'https://blog.naver.com/designpress2016/221503586372',
         },
         {
           date: '2018.11.25',
-          text: "PROF BAE WAS INTERVIEWED IN YTN INNOVATION KOREA PROGRAM",
+          text: "Prof. Bae was interviewed in YTN Innovation Korea Program",
           imgList: [],
           link: 'https://www.youtube.com/watch?v=oQGkIh0jv6Y',
         },
         {
           date: '2018.11.22',
-          text: "PROF. BAE WAS INTERVIEWED BY CENS BRAND PEOPLE",
+          text: "Prof. Bae was Interviewed by CENS Brand People",
           imgList: [],
           link: 'https://www.youtube.com/watch?v=cFswGmixWTM',
         },
         {
           date: '2017.09.15',
-          text: "ID+IM WAS BROADCASTED ON YTN NEWS FOR WINNING 4 AWARDS AT IDEA",
+          text: "ID+IM was broadcasted on YTN News for winning 4 awards at IDEA",
           imgList: [],
           link: 'https://www.youtube.com/watch?v=h8R6X587kHY',
         },
         {
           date: '2017.01.30',
-          text: "PROF. BAE APPEARED ON ARIRANG SPECIAL",
+          text: "Prof. Bae appeared on Arirang Special",
           imgList: [],
           link: 'https://www.youtube.com/watch?v=_l1kzJgcN3E&feature=youtu.be',
         },
@@ -933,6 +975,14 @@ export default {
     },
     handleWorkSelect: function(index) {
        this.pushRoute('work', index.toString());
+    },
+    disableBodyScroll: function() {
+      console.log('disabled!');
+      document.body.classList.add('prevent-scroll');
+    },
+    enableBodyScroll: function() {
+      console.log('enabled!');
+      document.body.classList.remove('prevent-scroll');
     }
   },
   components: {
@@ -942,7 +992,8 @@ export default {
     NewsBase,
     WorkPaper,
     AwardsPaper,
-    PapersPaper
+    PapersPaper,
+    ContactPaper,
   },
   directives: {
 
@@ -974,6 +1025,8 @@ export default {
 #app {
   --indent: 17px; 
   font-family: AGBook, Helvetica, Arial, sans-serif;
+  /* font-family: Favorit; */
+  /* font-family: Helvetica; */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   width: 100%; height: 100%;
@@ -987,6 +1040,8 @@ export default {
     grid-column: 2 / span 1; */
     display: inline-block;
     pointer-events: auto;
+    font-size: 3.7em;
+    font-weight: 500;
     top: var(--top-1);
     left: var(--left-1);
     cursor: pointer
@@ -1014,6 +1069,22 @@ export default {
     }
     &.bottom {
       bottom: var(--top-1);
+
+      .button {
+        &.contact {
+          cursor: context-menu;
+          &:hover {
+            text-decoration: underline;
+          }
+        }
+        &.shop {
+          cursor: alias;
+          &:hover {
+            text-decoration: underline;
+            color: blue;
+          }
+        }
+      }
     }
   }
 
@@ -1026,6 +1097,9 @@ export default {
     z-index: 20;
     cursor: e-resize;
 
+    &.contact {
+      cursor: s-resize;
+    }
   }
 
   .fade-enter-active, .fade-leave-active {
@@ -1045,7 +1119,13 @@ export default {
     transform: translate(100vw, 0);
   } 
 
-  
+ .slide-up-enter-active, .slide-up-leave-active {
+    transition: transform 0.6s;
+    transition-timing-function: cubic-bezier(0.165, 0.840, 0.440, 1.000);
+  }
+  .slide-up-enter, .slide-up-leave-to {
+    transform: translate(0, 100vh);
+  }  
  
 
 

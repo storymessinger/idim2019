@@ -7,7 +7,9 @@
       x="55%"
       y="5%">
       <div class="awards-paper">
-        <h1>Awards</h1>
+        <h2 class="title">
+          Awards
+        </h2>
         <div 
           class="award-row"
           v-for="(award, index) in awardList"
@@ -18,14 +20,13 @@
             {{award.year}}
           </p>
           <p
-            class="project-name">
-            {{award.projectName}}
-          </p>
-          <p
-            class="award-name">
+            class="award">
             {{award.awardName}}
           </p>
-          
+          <p
+            class="project">
+            {{award.projectName}}
+          </p>
         </div>
       </div>
     </DraggablePaper>
@@ -107,54 +108,70 @@ export default {
   }
 
   .hiring-paper {
-    width: 100%;
+    width: 35vw;
+    height: 25vw;
+    overflow-y: scroll;
     background: #28adff;
     padding: 1em 1.5em;
 
     h1 {  
       font-size: 4em;
       line-height: 1.1em;
+      font-weight: 400;
     } 
   }
 
   .awards-paper {
     padding: 1em 0;
-    background: #fce333;
-    font-size: 16px;
+    /* background: #fce333; */
+    width: 30vw;
+    height: 80vh;
+    overflow-y: scroll;
+    background: #ff9953;
+    /* box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23); */
+    font-size: 20px;
+    padding: 
+      0.8em 
+      0.9em 
+      1.8em;
 
-    h1 {
-      font-size: 1em;
+    .title {
+      font-size: 0.85em;
       font-weight: 400;
-      padding: 0.1em 1em;
-      margin-bottom: 1.4em;
+      margin-bottom: 0.3em;
     }
-    .award-row {
-      position: relative;
-      width: 100%;
-      display: grid;
-      grid-template-columns: 1em repeat(6, 1fr) 1em;
-      padding: 0 0.2em 0 0em;
-      
+    
+  & > .award-row {
+    position: relative;
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    font-size: 0.85em;
 
-      .year {
-        border-top: 2px solid rgba(0,0,0,0.1);
-        grid-column: 2;
-        padding: 0.2em 0.2em;
-      }
-
-      .project-name {
-        border-top: 2px solid rgba(0,0,0,0.1);
-        grid-column: 3 / span 2;
-        padding: 0.2em 0.2em;
-      }
-
-      .award-name {
-        border-top: 2px solid rgba(0,0,0,0.1);
-        grid-column: 5 / span 3;
-        padding: 0.2em 0.2em;
-        /* font-style: italic; */
-      }
+    .year {
+      /* font-weight: 500; */
+      flex: 20% 0 0;
+      border-top: 1px solid rgba(0,0,0,0.2);
+      padding: 0.3em 0;
+      box-sizing: border-box;
     }
+    .award {
+      flex: 40% 0 0;
+      border-top: 1px solid rgba(0,0,0,0.2);
+      padding: 0.3em 0;
+      padding-right: 2em;
+      line-height: 1.25;
+      box-sizing: border-box;
+    }
+    .project {
+      flex: 40% 0 0;
+      border-top: 1px solid rgba(0,0,0,0.2);
+      padding: 0.3em 0.2em;
+      box-sizing: border-box;
+    }
+
+  }
+
 
   }
 

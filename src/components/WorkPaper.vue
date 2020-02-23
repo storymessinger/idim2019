@@ -31,7 +31,7 @@
       <figure 
         v-for="(figure, iFigure) in section.figureList"
         :key="`${work.name}-${iSection}-${iFigure}`"
-        class="figure-box"
+        class="figure"
         >
         <img :width="`${figure.width*100}%`" height="600px"/>
         <figcaption>
@@ -165,16 +165,6 @@ export default {
   methods: {
     formatIndex : (index, digit) => index < 10 ? '0'.concat(index.toString()).charAt(digit) : index.toString().charAt(digit),
   },
-  mounted: function() {
-    // If WorkPaper, AwardsPaper, PapersPaper displaying
-    if (this.$route.params.dir2) {
-      document.body.classList.add('prevent-scroll');
-    }
-    // Also catch contact
-  },
-  destroyed: function() {
-    document.body.classList.remove('prevent-scroll');
-  }
 }
 </script>
 
@@ -187,7 +177,7 @@ export default {
   --padding-left: 60px;
   --padding-right: 300px;
   --margin-title-vertical: 110px;
-  --margin-body-vertical: 90px;
+  --margin-body-vertical: 70px;
   
   z-index: 11;
   position: relative;
@@ -204,8 +194,14 @@ export default {
   cursor: default;
   
   & > .top-bar {
-    padding: 0.2em 0.5em;
-    background: rgba(0,0,0,0.04);
+    padding: 0em 0.5em;
+    padding-left: 15px;
+    padding-top: 6px;
+    
+    /* position: absolute; */
+    /* background: rgba(0,0,0,0.04); */
+    /* background: #eefefe; */
+    /* border-bottom: 1px solid #ddd; */
 
     span {
       display: inline-block;
@@ -219,22 +215,33 @@ export default {
   }
   & > .header {
     padding: 
-      var(--margin-title-vertical)
+      /* var(--margin-title-vertical) */
+      2em
       var(--padding-right)
-      var(--margin-title-vertical)
+      /* var(--margin-title-vertical) */
+      4em
       var(--padding-left);
-
+      /* 2.2em; */
 
     & > .title {   
-      font-size: 5em;
-      font-weight: 500;
+      font-size: 4.8em;
+      /* font-weight: 500;
       line-height: 1.1;
-      letter-spacing: -0.01em;
-      margin-top: calc(var(--margin-title-vertical) * -0.2);
-      margin-bottom: calc(var(--margin-title-vertical) * 0.8);
+      letter-spacing: -0.01em; */
+      line-height: 1;
+      letter-spacing: -0.015em;
+      margin-left: -0.05em;
+      /* margin-top: calc(var(--margin-title-vertical) * -0.2); */
+      /* margin-bottom: calc(var(--margin-title-vertical) * 0.8); */
+      /* margin-bottom: 0.4em; */
+      margin-bottom: 0.7em;
+      /* margin-bottom: 1em; */
+      /* margin-bottom: 0.3em; */
+      /* border-left: 5px solid rgba(0,0,0,0.05); */
     }
       & > div {
       display: flex;
+      /* font-size: 0.9em; */
 
       & > .meta-box{
         flex-basis: 40%;
@@ -245,6 +252,7 @@ export default {
             /* h3 {
               display: inline;
             } */
+            font-style: italic;
             &.client {
               margin-bottom: 1em;
             }
@@ -279,14 +287,21 @@ export default {
 
     & > div {
       display: flex;
-      margin-bottom: 40px;
+      margin-bottom: 30px;
+      /* border-top: 1px solid rgba(0,0,0,0.2); */
+      padding-top: 12px;
 
       & > .chapter-title {
         display: block;
         flex: 0 0 35%;
-        font-size: 1.7em;
+
+        /* font-size: 1.7em;
         line-height: 1.2;
-        font-weight: 500;
+        font-weight: 500; */
+
+        font-size: 1.4em;
+        line-height: 1.2;
+
         margin-top: -0.15em;
         padding-right: 5%; // adds up to 40%
       } 
@@ -297,7 +312,7 @@ export default {
       }
     }
 
-    & > .figure-box {
+    & > .figure {
       position: relative;
       margin: 0;
       &:not(:first-child) {
